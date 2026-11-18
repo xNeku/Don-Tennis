@@ -242,7 +242,8 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 - [PROPUESTA] Niveles de potencia: normal, fuerte, muy fuerte, brutal, especial. La rampa es un Resource editable.
 - [DECIDIDO] **Polvo en el suelo ligado a la velocidad.**
 - [PROPUESTA] Pisadas con polvo (más y más seguido cuanto más rápido), nube grande al derrapar y al frenar en seco, polvo en el bote de una bola rápida o potente, y rachas cortas de velocidad detrás de quien corre a tope.
-- [PROPUESTA] Catálogo de feedback: hitstop (60-90 ms perfecto, ~120 ms especial), sacudida proporcional a la potencia, destello, estela de la bola, polvo al rodar y al frenar, squash & stretch, texto flotante ("PERFECTO", "PARRY", "KNOCKUP"), tinte de pantalla en la zona, cambio de música.
+- [DECIDIDO] **Sin avisos con texto** (PERFECTO, PARRY, KNOCKUP...): el feedback se da solo con efectos visuales y de movimiento.
+- [PROPUESTA] Catálogo de feedback: hitstop (60-90 ms perfecto, ~120 ms especial), sacudida proporcional a la potencia, destello, estela de la bola, polvo al rodar y al frenar, squash & stretch, tinte de pantalla en la zona, cambio de música.
 - [PROPUESTA] **Arco de golpe** (media luna oscura que sigue a la raqueta al golpear, como en la referencia) como efecto base. Crece con la potencia y se tiñe con la rampa de rojos.
 - [PROPUESTA] **Animaciones por estado**, cada una un sprite sheet dibujado a mano (`AnimatedSprite2D` o `AnimationPlayer`): quieto, correr, golpe normal, globo, dash (rodar), plancha, caída y levantarse, knockup, celebrar y perder. La lógica no depende de las animaciones: la animación sigue a los estados y la lógica emite eventos.
 - [PROPUESTA] El rival comparte esa lista y añade estados propios de cada quirk (por ejemplo, fintar, avance ninja, entrar en la zona), para que los trucos tengan su aviso visual.
@@ -315,6 +316,6 @@ Jugable: jugador (mando o teclado) contra un rival con IA base, partidos a 11, s
 - [ABIERTO] Sin implementar: golpe especial (§6.6, falta decidir qué hace), punto de oro en 10-10, sonido, menús, pausa.
 - Inercia y derrape implementados (§6.8). La lectura de golpes del rival (wind-up) está decidida en el diseño pero sin implementar (§9).
 - Ritmo creciente, fricción de la pista y polvo de velocidad implementados.
-- Game feel implementado: hitstop (pausa del árbol, 0,04-0,13 s), sacudida de cámara a píxel entero, destello, textos flotantes (PERFECTO, PARRY, KNOCKUP...), polvo al rodar, frenar y caer, estela de la bola potente, arco de golpe, color de la bola según potencia y destello del personaje.
+- Game feel implementado: hitstop (pausa del árbol, 0,04-0,13 s), sacudida de cámara a píxel entero, destello, polvo al rodar, frenar y caer, estela de la bola potente, arco de golpe, color de la bola según potencia y destello del personaje.
 - Descartado por ser pixel art: squash & stretch (deforma los píxeles).
 

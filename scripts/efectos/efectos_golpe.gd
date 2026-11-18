@@ -1,6 +1,6 @@
 class_name EfectosGolpe
 extends Node2D
-## Game feel del golpe (GDD §12): hitstop, sacudida, destello, texto flotante, polvo y estela.
+## Game feel del golpe (GDD §12): hitstop, sacudida, destello, polvo y estela. Sin textos de aviso.
 ## Solo escucha los eventos de la lógica (golpe, polvo, knockup...); nunca decide nada.
 ## Todo es temporal y se crea por código a propósito.
 
@@ -150,21 +150,6 @@ func _on_golpe(info: Dictionary) -> void:
 	if nivel >= 1 or perfecto or parry:
 		_destello(pantalla, nivel)
 
-	# Textos
-	var color: Color = rampa.color_para(potencia) if rampa != null else Color.WHITE
-	if info["knock"]:
-		_texto("KNOCKUP!", pantalla, Color(1.0, 0.35, 0.3))
-	elif parry and perfecto:
-		_texto("PARRY PERFECTO", pantalla, Color(0.5, 1.0, 1.0))
-	elif parry:
-		_texto("PARRY", pantalla, Color(0.5, 0.95, 1.0))
-	elif perfecto:
-		_texto("PERFECTO", pantalla, Color(1.0, 0.9, 0.35))
-	elif info["emergencia"]:
-		_texto("¡PLANCHA!", pantalla, Color(0.85, 0.9, 1.0))
-	elif nivel >= 4:
-		_texto("BRUTAL", pantalla, color)
-
 
 # Polvo en el bote: más cuanto más potente y rápida va la bola.
 func _on_rebote_bola(punto: Vector2, _numero: int) -> void:
@@ -195,25 +180,6 @@ func _destello(pos: Vector2, nivel: int) -> void:
 		tween.tween_interval(0.035)
 	tween.tween_callback(spr.queue_free)
 	spr.texture = destellos[0]
-
-
-func _texto(texto: String, pos: Vector2, color: Color) -> void:
-	var etiqueta: Label = Label.new()
-	etiqueta.text = texto
-	etiqueta.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	etiqueta.add_theme_font_size_override("font_size", 8)
-	etiqueta.add_theme_color_override("font_color", color)
-	etiqueta.add_theme_color_override("font_outline_color", Color("14122b"))
-	etiqueta.add_theme_constant_override("outline_size", 3)
-	add_child(etiqueta)
-	var tam: Vector2 = etiqueta.get_minimum_size()
-	etiqueta.position = Vector2(
-			clampf(pos.x - tam.x * 0.5, 2.0, 478.0 - tam.x), maxf(pos.y - 22.0, 14.0)).round()
-	var tween: Tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(etiqueta, "position:y", etiqueta.position.y - 14.0, 0.7)
-	tween.tween_property(etiqueta, "modulate:a", 0.0, 0.25).set_delay(0.45)
-	tween.chain().tween_callback(etiqueta.queue_free)
 
 
 func _on_polvo(pos: Vector2, cantidad: int, _per: Personaje = null) -> void:
