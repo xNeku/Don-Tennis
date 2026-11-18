@@ -40,12 +40,14 @@ Pilares de diseño:
 - [DECIDIDO] Vista vertical: rival arriba, jugador abajo. Referencia de flow: Mario Tennis, Wii Sports Tennis.
 - [DECIDIDO] Público a los lados y detrás del rival (según la pista). Árbitro en la red que hace de comentarista, siempre el mismo y con carisma.
 - [DECIDIDO] Se quiere un juego 2D pero **no plano**: con otro ángulo (2.5D), y una **zona jugable más grande**.
-- [ABIERTO] **Cámara: plana (A) o 2.5D en perspectiva (B).** Ambas están implementadas para compararlas (ramas `fase-0-bola` y `fase-0-bola-25d`). La lógica es la misma: solo cambia cómo se proyecta a pantalla (`Pista.proyectar`). Con B, el rival (lejos) se ve pequeño y estrecho y el jugador (cerca) grande. La perspectiva sale de 4 marcadores en pantalla, para alinearlos con una pista dibujada a mano.
+- [DECIDIDO] **Cámara 2.5D en perspectiva** (opción B). Se descarta la vista plana. La perspectiva sale de 4 marcadores en pantalla (`Pista25D`), pensados para alinearlos con una pista dibujada a mano. La lógica trabaja en coordenadas lógicas y la pista proyecta (`proyectar`/`desproyectar`), así que el ángulo se cambia sin tocar la física.
 - [PROPUESTA] Cámara fija, sin zoom dinámico salvo efectos puntuales (especial, punto decisivo).
 - [PROPUESTA] La pista, las gradas y el árbitro van como **escenas `.tscn` editables** (piezas sueltas: Polygon2D / Sprite2D), para que tú las muevas y dibujes sin tocar código.
-- [ABIERTO] Estilo gráfico. Se dijo "tipo Game Boy modernizado", pero **no es eso**: no se busca pixel art de 4 tonos. Pendiente de definir (2D dibujado a mano con ángulo 2.5D).
-- [PROPUESTA] Resolución base **640×360** con escalado suave (`canvas_items`), no entero: ya no se busca pixel art estricto. Es el punto medio entre detalle y trabajo de dibujo (personajes de ~55-65 px). 960×540 da más detalle, pero cada sprite cuesta mucho más de dibujar.
-- [PROPUESTA] En 2.5D los sprites se **escalan con la profundidad** (más pequeños lejos). Con arte dibujado en alta resolución se ve bien. Con pixel art estricto el escalado no entero queda mal: habría que dibujar tamaños fijos o quitar la perspectiva.
+- [DECIDIDO] Diseño visual **simple pero con mucha personalidad**. Pesan más la personalidad y el game feel que el detalle.
+- [ABIERTO] Pixel art o alta resolución. Tendencia del humano: pixel art. Se enseñaron mockups de los dos. Se descartó el estilo "Game Boy" (4 tonos).
+- [PROPUESTA] Ruta pixel art en 2.5D: **sprites de tamaño fijo, sin escalar con la perspectiva**. El jugador (siempre en la mitad cercana) se dibuja a su tamaño (~58 px a 640×360) y el rival (mitad lejana) más pequeño (~44 px). La bola se dibuja en 3-4 tamaños. La perspectiva la da la pista y la diferencia de tamaño entre personajes. Escalar pixel art con la perspectiva deforma píxeles (se vio en los mockups). Con esta ruta se pasaría a escalado entero (modo `viewport`).
+- [PROPUESTA] Resolución base **640×360**. Con pixel art, escalado entero (×2 = 720p, ×3 = 1080p). Con alta resolución, escalado suave (`canvas_items`). 960×540 daría más detalle, pero cada sprite cuesta mucho más de dibujar.
+- [PROPUESTA] Ruta alta resolución: los sprites se **escalan con la profundidad** (más pequeños lejos). Con arte dibujado en alta resolución se ve bien, pero no es pixel art.
 - [ABIERTO] Resolución definitiva, depende de cuánto arte quieras dibujar y del estilo final.
 
 ### Información de la bola
@@ -70,6 +72,8 @@ Pilares de diseño:
 - [PROPUESTA] La **dirección** del golpe sale del stick en el momento del contacto: izquierda/derecha para colocar; delante para profundo y potente, atrás para dejada (bola corta).
 - [DECIDIDO] **Globo con botón propio** (`globo`). Sirve contra rivales pegados a la red (la madre buscando parry, el ninja de la vieja gloria), que de otro modo solo se pasan por los lados.
 - [PROPUESTA] El globo es un golpe alto y lento (tiempo de vuelo largo, potencia baja). Da tiempo al rival para recolocarse, así que no es gratis. La dirección sale del stick como en el golpe normal.
+- [DECIDIDO] **La altura del globo puede variar**: está bien que unos salgan por el borde superior de la pantalla y otros no. La sombra y el marcador de caída siguen visibles para leerlo.
+- [PROPUESTA] La altura/tiempo de vuelo del globo depende de la distancia, el timing o el stick. Se define al hacer el golpe real (fase 1).
 - [PROPUESTA] Sobre el golpe de la bola: tipo de golpe (normal, globo, dejada...) es un dato de la bola (`TipoGolpe`) y no código aparte, para que la física y la IA los traten igual.
 
 ## 6. Movimientos del jugador
@@ -260,5 +264,5 @@ Una rama por fase, un commit por tarea. No se avanza hasta que la fase sea diver
 5. 10–10: punto de oro o ganar por 2.
 6. Derrota: reintento infinito o vidas.
 7. Marcador de caída: siempre o desactivable.
-8. Cámara plana (A) o 2.5D (B), estilo gráfico definitivo y resolución (640×360 propuesta).
+8. Pixel art o alta resolución (tendencia: pixel art) y resolución (640×360 propuesta).
 9. Título del juego.
