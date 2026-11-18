@@ -1,0 +1,15 @@
+# IDEAS
+
+Las ideas nuevas van aquí, no al código. El diseño (`GDD.md`) está congelado hasta que el tramo actual sea jugable.
+
+## Para después de la prueba
+- Segundo torneo y más rivales (reutilizando quirks).
+- Rivales desbloqueables como jugables en versus local (y online con Steam Remote Play Together).
+- Modo "Pesadilla": el rival empieza directamente en su última etapa.
+- Replay automático del último punto (grabar posiciones y reproducir).
+- Sala de entrenamiento con máquina de bolas (muy recomendada antes de lanzar).
+- Estilos de juego (presets de datos) y pasiva de "mente".
+- Contrarreloj y "ganar sin fallar un golpe".
+
+## Otros juegos (no tocar en este repo)
+- **Gestión de vagabundos (juego 2 candidato):** día = planificar con paneles (20-30 s) + ver el día resolverse con la ciudad animada. La ciudad se transforma según la densidad de vagabundos; un alcalde que reacciona (arquitectura hostil, redadas); eventos de texto tipo *Reigns*; gremios al empezar la run; vagabundos con nombre y manías. Límite de scope: 3 recursos, 4 distritos, ~15-20 tipos de vagabundo, ~60 eventos.
