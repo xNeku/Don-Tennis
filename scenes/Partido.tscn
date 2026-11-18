@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://scripts/mundo/partido.gd" id="1_part"]
 [ext_resource type="PackedScene" path="res://scenes/Pista25D.tscn" id="2_pista"]
@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" path="res://art/placeholder/destello_11.png" id="19_d11"]
 [ext_resource type="Texture2D" path="res://art/placeholder/destello_7.png" id="20_d7"]
 [ext_resource type="Texture2D" path="res://art/placeholder/polvo.png" id="21_polvo"]
+[ext_resource type="Texture2D" path="res://art/placeholder/racha_h.png" id="22_rh"]
+[ext_resource type="Texture2D" path="res://art/placeholder/racha_v.png" id="23_rv"]
 
 [node name="Partido" type="Node2D"]
 script = ExtResource("1_part")
@@ -59,6 +61,7 @@ script = ExtResource("5_efe")
 rampa = ExtResource("17_rampa")
 destellos = Array[Texture2D]([ExtResource("18_d15"), ExtResource("19_d11"), ExtResource("20_d7")])
 textura_polvo = ExtResource("21_polvo")
+rachas = Array[Texture2D]([ExtResource("22_rh"), ExtResource("23_rv")])
 
 [node name="Camara" type="Camera2D" parent="."]
 position = Vector2(240, 135)
@@ -77,6 +80,33 @@ theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 8
 text = "RIVAL 0 - 0 TÚ"
+
+[node name="RitmoFondo" type="ColorRect" parent="UI"]
+offset_left = 4.0
+offset_top = 17.0
+offset_right = 64.0
+offset_bottom = 23.0
+mouse_filter = 2
+color = Color(0.04, 0.04, 0.1, 0.85)
+
+[node name="RitmoBarra" type="ColorRect" parent="UI"]
+offset_left = 5.0
+offset_top = 18.0
+offset_right = 5.0
+offset_bottom = 22.0
+mouse_filter = 2
+
+[node name="RitmoTexto" type="Label" parent="UI"]
+offset_left = 68.0
+offset_top = 14.0
+offset_right = 120.0
+offset_bottom = 26.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 1, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "RITMO"
 
 [node name="Mensaje" type="Label" parent="UI"]
 offset_left = 4.0

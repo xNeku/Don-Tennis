@@ -9,6 +9,10 @@ extends Node2D
 @export var alto_red: float = 14.0
 ## Cuánto sube la bola en pantalla por cada unidad de altura z (en la escala local de la bola).
 @export var factor_altura: float = 0.6
+## Agarre del suelo para los jugadores: más = acelera, frena y gira antes; menos = resbala (tierra, hielo).
+@export_range(0.3, 2.0, 0.05) var friccion_jugador: float = 1.0
+## Fricción del suelo sobre la bola: más = pierde más velocidad al botar y al rodar.
+@export_range(0.3, 2.0, 0.05) var friccion_bola: float = 1.0
 
 
 ## Rectángulo de juego (dentro de las líneas), en coordenadas lógicas.

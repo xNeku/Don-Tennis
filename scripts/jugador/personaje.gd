@@ -147,10 +147,12 @@ func _libre(delta: float) -> void:
 
 func _mover_libre(dir: Vector2, factor: float, delta: float, girar: bool) -> void:
 	var rapidez: float = vel.length()
+	# Agarre del suelo (fricción de la pista): más agarre = acelera, frena y gira antes.
+	var agarre: float = pista.friccion_jugador
 	# Cambio brusco de sentido a velocidad: derrape (peso del personaje).
 	if _derrape_t <= 0.0 and not auto_activo and dir.length() > 0.3 \
 			and rapidez >= params.derrape_velocidad_min and vel.normalized().dot(dir.normalized()) < -0.35:
-		_derrape_t = params.derrape_duracion * clampf(rapidez / params.velocidad_max, 0.0, 1.0)
+		_derrape_t = params.derrape_duracion * clampf(rapidez / params.velocidad_max, 0.0, 1.0) / agarre
 		polvo.emit(position, 6)
 		_t_polvo = 0.06
 		derrape_iniciado.emit()
@@ -158,9 +160,9 @@ func _mover_libre(dir: Vector2, factor: float, delta: float, girar: bool) -> voi
 	if derrapando:
 		_derrape_t -= delta
 		# Desliza: fricción fuerte sobre el movimiento anterior y poco control hacia el nuevo sentido.
-		vel = vel.move_toward(Vector2.ZERO, params.derrape_friccion * delta)
+		vel = vel.move_toward(Vector2.ZERO, params.derrape_friccion * agarre * delta)
 		if dir.length() > 0.1:
-			vel += dir * params.aceleracion * params.derrape_control * delta
+			vel += dir * params.aceleracion * agarre * params.derrape_control * delta
 		if _t_polvo <= 0.0:
 			polvo.emit(position, 2)
 			_t_polvo = 0.06
@@ -169,14 +171,15 @@ func _mover_libre(dir: Vector2, factor: float, delta: float, girar: bool) -> voi
 			mirando_derecha = vel.x > 0.0
 		return
 	var objetivo: Vector2 = dir * params.velocidad_max * factor
-	var aceleracion: float = params.aceleracion if dir.length() > 0.1 else params.deceleracion
+	var aceleracion: float = (params.aceleracion if dir.length() > 0.1 else params.deceleracion) * agarre
 	if dir.length() <= 0.1 and rapidez > 85.0 and _t_polvo <= 0.0:
 		# Frenazo en seco desde la carrera.
 		polvo.emit(position, 3)
 		_t_polvo = 0.2
-	elif rapidez > 80.0 and _t_polvo <= 0.0:
-		polvo.emit(position, 1)
-		_t_polvo = 0.24
+	elif rapidez > 55.0 and _t_polvo <= 0.0:
+		# Pisadas: más polvo y más seguido cuanto más rápido corres.
+		polvo.emit(position, 1 + int(rapidez / 90.0))
+		_t_polvo = lerpf(0.2, 0.1, clampf(rapidez / params.velocidad_max, 0.0, 1.0))
 	vel = vel.move_toward(objetivo, aceleracion * delta)
 	position += vel * delta
 	if girar and absf(vel.x) > 12.0:
@@ -366,6 +369,11 @@ func _resolver_golpe(b: Bola, emergencia: bool) -> void:
 	if parry:
 		tiempo /= params.mult_parry
 		potencia += 0.25
+	# El peloteo se acelera con cada golpe seguido; los globos ni se aceleran ni suben el ritmo.
+	var es_globo: bool = swing_globo or emergencia
+	var ritmo_golpes: int = b.golpes_en_juego
+	if not es_globo and b.ritmo != null:
+		tiempo *= b.ritmo.factor_tiempo(ritmo_golpes)
 	if emergencia:
 		potencia = 0.1
 	if knock:
@@ -403,6 +411,10 @@ func _resolver_golpe(b: Bola, emergencia: bool) -> void:
 	}
 	b.lanzar_hacia(b.position, maxf(b.z, 4.0), destino, tiempo, potencia)
 	b.ultimo_golpeador = lado
+	b.golpes_en_juego += 1
+	if es_globo and b.ritmo != null:
+		# El globo relaja el peloteo.
+		b.golpes_en_juego = maxi(b.golpes_en_juego - b.ritmo.relajacion_globo, 0)
 
 	if knock:
 		_empezar_knockup()

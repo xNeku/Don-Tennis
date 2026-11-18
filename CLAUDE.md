@@ -58,7 +58,7 @@ Arcade de tenis en vista vertical, rápido y difícil, con rivales únicos tipo 
 1. Di en una frase lo que vas a hacer y empieza. Si la petición es clara, no pidas permiso.
 2. Tareas pequeñas, cada una termina en algo que corre. Una tarea = un commit.
 3. Valida en headless: `godot --headless --path . --import` y luego `godot --headless --path . --quit-after 60`. Debe terminar sin errores de parseo ni de carga.
-4. Prueba en ejecución con escenas temporales scripteadas (bola, golpes, dash, IA). No des por bueno algo que solo compila.
+4. Prueba en ejecución con escenas temporales scripteadas (bola, golpes, dash, IA). No des por bueno algo que solo compila. **No grabes ni mandes vídeos salvo que el humano lo pida**; para comprobar tú lo visual puedes sacar capturas propias sin enviarlas.
 5. Si algo es incierto, compruébalo en lugar de suponerlo.
 6. Commit con mensaje claro y push de la rama.
 7. Informa en pocas líneas: qué hay nuevo, cómo hacer pull (comandos en bloque), qué puede ajustar y dónde, y qué queda sin probar o sin pulir. Sin vender de más.

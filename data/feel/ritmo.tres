@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="RitmoPartido" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/ritmo_partido.gd" id="1_ritmo"]
+
+[resource]
+script = ExtResource("1_ritmo")

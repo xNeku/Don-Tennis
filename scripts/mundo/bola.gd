@@ -12,6 +12,8 @@ signal golpeo_red()
 signal detenida()
 
 @export var params: ParametrosBola
+## Aceleración del peloteo (ver RitmoPartido).
+@export var ritmo: RitmoPartido
 
 var pista: Pista
 var z: float = 0.0
@@ -26,6 +28,8 @@ var tiempo_vuelo: float = 0.0
 var rodando: bool = false
 ## Lado (Personaje.Lado) de quien la golpeó por última vez; -1 si nadie (p. ej. al lanzar al aire en el saque).
 var ultimo_golpeador: int = -1
+## Golpes seguidos en el punto actual (sube el ritmo; los globos lo relajan).
+var golpes_en_juego: int = 0
 
 
 ## Lanza la bola con velocidades explícitas.
@@ -63,6 +67,7 @@ func trayectoria_prevista(duracion: float, paso: float) -> Array:
 	var roda: bool = rodando
 	var reb: int = rebotes
 	var g: float = params.gravedad
+	var f: float = _friccion()
 	var t: float = 0.0
 	while t < duracion:
 		var restante: float = paso
@@ -78,7 +83,7 @@ func trayectoria_prevista(duracion: float, paso: float) -> Array:
 				zz = 0.0
 				reb += 1
 				var vz_nueva: float = -vzz * params.restitucion
-				v *= params.friccion_rebote
+				v *= pow(params.friccion_rebote, f)
 				if vz_nueva < params.velocidad_minima_rebote:
 					vzz = 0.0
 					roda = true
@@ -87,7 +92,7 @@ func trayectoria_prevista(duracion: float, paso: float) -> Array:
 				restante -= t_suelo
 			elif roda:
 				p += v * restante
-				v *= exp(-params.friccion_rodar * restante)
+				v *= exp(-params.friccion_rodar * f * restante)
 				restante = 0.0
 			else:
 				zz += vzz * restante - 0.5 * g * restante * restante
@@ -142,7 +147,7 @@ func _mover(t: float) -> void:
 	var z_previa: float = z
 	if rodando:
 		position += vel * t
-		vel *= exp(-params.friccion_rodar * t)
+		vel *= exp(-params.friccion_rodar * _friccion() * t)
 		if vel.length() < params.velocidad_parada:
 			_detener()
 	else:
@@ -178,13 +183,17 @@ func _comprobar_red(pos_previa: Vector2, z_previa: float) -> void:
 func _rebotar() -> void:
 	rebotes += 1
 	var vz_nueva: float = -vz * params.restitucion
-	vel *= params.friccion_rebote
+	vel *= pow(params.friccion_rebote, _friccion())
 	if vz_nueva < params.velocidad_minima_rebote:
 		vz = 0.0
 		rodando = true
 	else:
 		vz = vz_nueva
 	rebote.emit(position, rebotes)
+
+
+func _friccion() -> float:
+	return pista.friccion_bola if pista != null else 1.0
 
 
 ## Detiene la bola (se queda donde está) sin emitir `detenida`.

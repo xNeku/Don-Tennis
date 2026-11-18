@@ -125,7 +125,12 @@ Pilares de diseño:
 - [PROPUESTA] Cuanto más potente la bola, más te **empuja** hacia atrás al recibirla. Por encima de un umbral y si la recibes en la zona delantera, es **knockup**: sales volando hacia atrás y quedas aturdido ~0,8 s.
 - [PROPUESTA] Un **parry o golpe perfecto sobre una bola potente anula el empuje** (la recibes sin moverte). Es el contrajuego activo.
 
-### 6.8 Inercia y derrape
+### 6.8 Fricción e inercia
+- [DECIDIDO] **Hay fricción**: el suelo agarra y el movimiento tiene peso.
+- [PROPUESTA] La fricción es un dato de la pista, no del personaje: `friccion_jugador` (acelerar, frenar y derrapar) y `friccion_bola` (cuánta velocidad pierde la bola al botar y rodar). 1,0 es la pista rápida normal; menos resbala (tierra, hielo) y más agarra. Cada escenario puede tener la suya.
+- [ABIERTO] ¿Es esto a lo que te referías con fricción, o querías algo más (por ejemplo, que el cortado frene la bola al botar)? El cortado ya encajaría con `friccion_bola`.
+
+### 6.8b Inercia y derrape
 - [DECIDIDO] **El movimiento tiene peso.** Si corres a tope hacia un lado y te cruzan la bola al otro, no puedes girar al instante: pierdes unas décimas de segundo cruciales.
 - [PROPUESTA] Implementado: un cambio brusco de sentido a más de 55 unidades/s provoca un **derrape** (hasta 0,25 s a velocidad máxima). Durante el derrape sigues deslizando en el sentido anterior, con poco control hacia el nuevo. Girar a tope cuesta 0,38 s frente a 0,25 s sin derrape (+0,13 s). Los valores están en `ParametrosPersonaje` (grupo "Inercia y derrape").
 - [PROPUESTA] Aviso visual para que se lea como inercia y no como retraso del mando: animación de derrape (cuerpo inclinado, pies abiertos) y polvo. A poca velocidad se gira sin derrapar.
@@ -150,6 +155,9 @@ Pilares de diseño:
 - [ABIERTO] ¿Qué pasa en 10–10? Opciones: ganar por 2 con tope, o **punto de oro** (el siguiente gana). Recomiendo punto de oro: más drama para stream y no alarga partidos de 30 minutos.
 - [ABIERTO] ¿Derrota = reintentar el partido (infinitas veces) o hay vidas? Recomiendo reintento infinito con contador de intentos por rival (cosa que se presume en stream).
 - [PROPUESTA] Tras cada punto: reacción del rival y comentario del árbitro (texto corto).
+
+- [DECIDIDO] **El peloteo se acelera.** La bola empieza más lenta y gana velocidad con cada golpe seguido. Los globos relajan el ritmo.
+- [PROPUESTA] Implementado con `RitmoPartido` (`data/feel/ritmo.tres`): el tiempo de vuelo se multiplica por 1,3 al empezar el punto y baja linealmente hasta 0,8 tras 12 golpes. El globo ni se acelera ni sube el ritmo, y además resta 3 golpes al contador. Hay una barra de ritmo en el HUD. Los golpes perfectos y los parries siguen acelerando encima de eso.
 
 ## 9. IA y reglas de justicia
 
@@ -232,6 +240,8 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 - [DECIDIDO] Graduación de rojos según la potencia de la bola, barras con buen aspecto, game feel potente (sacudidas, colores, efectos de movimiento, polvo, buenas animaciones).
 - [PROPUESTA] Paleta base por pista (no estrictamente reducida) y una **rampa de rojos de 5 pasos** reservada para la potencia. La bola siempre con máximo contraste y borde.
 - [PROPUESTA] Niveles de potencia: normal, fuerte, muy fuerte, brutal, especial. La rampa es un Resource editable.
+- [DECIDIDO] **Polvo en el suelo ligado a la velocidad.**
+- [PROPUESTA] Pisadas con polvo (más y más seguido cuanto más rápido), nube grande al derrapar y al frenar en seco, polvo en el bote de una bola rápida o potente, y rachas cortas de velocidad detrás de quien corre a tope.
 - [PROPUESTA] Catálogo de feedback: hitstop (60-90 ms perfecto, ~120 ms especial), sacudida proporcional a la potencia, destello, estela de la bola, polvo al rodar y al frenar, squash & stretch, texto flotante ("PERFECTO", "PARRY", "KNOCKUP"), tinte de pantalla en la zona, cambio de música.
 - [PROPUESTA] **Arco de golpe** (media luna oscura que sigue a la raqueta al golpear, como en la referencia) como efecto base. Crece con la potencia y se tiñe con la rampa de rojos.
 - [PROPUESTA] **Animaciones por estado**, cada una un sprite sheet dibujado a mano (`AnimatedSprite2D` o `AnimationPlayer`): quieto, correr, golpe normal, globo, dash (rodar), plancha, caída y levantarse, knockup, celebrar y perder. La lógica no depende de las animaciones: la animación sigue a los estados y la lógica emite eventos.
@@ -304,6 +314,7 @@ Jugable: jugador (mando o teclado) contra un rival con IA base, partidos a 11, s
 - [PROPUESTA] **Reglas de punto:** bote fuera, bote en tu campo, red o doble bote del rival. Un lanzamiento de saque que bota sin golpearse se repite sin penalizar.
 - [ABIERTO] Sin implementar: golpe especial (§6.6, falta decidir qué hace), punto de oro en 10-10, sonido, menús, pausa.
 - Inercia y derrape implementados (§6.8). La lectura de golpes del rival (wind-up) está decidida en el diseño pero sin implementar (§9).
+- Ritmo creciente, fricción de la pista y polvo de velocidad implementados.
 - Game feel implementado: hitstop (pausa del árbol, 0,04-0,13 s), sacudida de cámara a píxel entero, destello, textos flotantes (PERFECTO, PARRY, KNOCKUP...), polvo al rodar, frenar y caer, estela de la bola potente, arco de golpe, color de la bola según potencia y destello del personaje.
 - Descartado por ser pixel art: squash & stretch (deforma los píxeles).
 

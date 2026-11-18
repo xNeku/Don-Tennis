@@ -24,10 +24,17 @@ extends Node2D
 ## Destellos de mayor a menor (se muestran en secuencia).
 @export var destellos: Array[Texture2D] = []
 @export var textura_polvo: Texture2D
+## Rachas de velocidad: [horizontal, vertical].
+@export var rachas: Array[Texture2D] = []
+
+@export_group("Velocidad")
+## Velocidad (unidades/s) a partir de la cual un personaje deja rachas de velocidad.
+@export var velocidad_rachas: float = 78.0
 
 var _pista: Pista
 var _bola: Bola
 var _cuerpo_bola: Sprite2D
+var _personajes: Array = []
 var _hitstop: float = 0.0
 var _tick: int = 0
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -42,6 +49,8 @@ func conectar(personajes: Array, b: Bola, p: Pista) -> void:
 	_bola = b
 	_pista = p
 	_cuerpo_bola = b.get_node("Visual/Cuerpo") as Sprite2D
+	_personajes = personajes
+	b.rebote.connect(_on_rebote_bola)
 	for per: Personaje in personajes:
 		per.golpe_realizado.connect(_on_golpe)
 		per.polvo.connect(_on_polvo.bind(per))
@@ -62,10 +71,39 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	# Estela de la bola cuando va potente.
-	if get_tree().paused or _bola == null or not _bola.activa or _bola.rodando or _bola.potencia < 0.5:
+	if get_tree().paused:
 		return
 	_tick += 1
+	_rachas_de_velocidad()
+	_estela_bola()
+
+
+# Rachas cortas detrás de quien corre a toda velocidad (el suelo "se lleva" el movimiento).
+func _rachas_de_velocidad() -> void:
+	if rachas.size() < 2 or _tick % 3 != 0 or _pista == null:
+		return
+	for per: Personaje in _personajes:
+		var v: Vector2 = per.vel
+		var rapidez: float = v.length()
+		if rapidez < velocidad_rachas or per.estado != Personaje.Estado.LIBRE or per.derrapando:
+			continue
+		var horizontal: bool = absf(v.x) >= absf(v.y)
+		var racha: Sprite2D = Sprite2D.new()
+		racha.texture = rachas[0] if horizontal else rachas[1]
+		var pie: Vector2 = _pista.proyectar(per.position).round()
+		var atras: Vector2 = -v.normalized()
+		racha.position = (pie + Vector2(atras.x * 10.0, atras.y * 7.0 - 4.0 + _rng.randf_range(-3.0, 3.0))).round()
+		racha.modulate = Color(1, 1, 1, clampf((rapidez - velocidad_rachas) / 40.0 + 0.35, 0.35, 0.8))
+		add_child(racha)
+		var tween: Tween = create_tween()
+		tween.tween_property(racha, "modulate:a", 0.0, 0.2)
+		tween.tween_callback(racha.queue_free)
+
+
+func _estela_bola() -> void:
+	# Estela de la bola cuando va potente.
+	if _bola == null or not _bola.activa or _bola.rodando or _bola.potencia < 0.5:
+		return
 	if _tick % 2 != 0:
 		return
 	var rastro: Sprite2D = Sprite2D.new()
@@ -128,6 +166,14 @@ func _on_golpe(info: Dictionary) -> void:
 		_texto("BRUTAL", pantalla, color)
 
 
+# Polvo en el bote: más cuanto más potente y rápida va la bola.
+func _on_rebote_bola(punto: Vector2, _numero: int) -> void:
+	var rapidez: float = _bola.vel.length()
+	if _bola.potencia < 0.3 and rapidez < 170.0:
+		return
+	_on_polvo(punto, 1 + int(_bola.potencia * 4.0) + int(rapidez / 220.0))
+
+
 func _on_knockup(_per: Personaje) -> void:
 	pass
 
@@ -170,7 +216,7 @@ func _texto(texto: String, pos: Vector2, color: Color) -> void:
 	tween.chain().tween_callback(etiqueta.queue_free)
 
 
-func _on_polvo(pos: Vector2, cantidad: int, _per: Personaje) -> void:
+func _on_polvo(pos: Vector2, cantidad: int, _per: Personaje = null) -> void:
 	if textura_polvo == null or _pista == null:
 		return
 	var base: Vector2 = _pista.proyectar(pos).round()

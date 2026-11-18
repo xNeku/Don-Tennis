@@ -26,6 +26,7 @@ signal partido_terminado(ganador: int)
 @onready var camara: CamaraFeel = $Camara
 @onready var _etiqueta_marcador: Label = $UI/Marcador
 @onready var _etiqueta_mensaje: Label = $UI/Mensaje
+@onready var _barra_ritmo: ColorRect = $UI/RitmoBarra
 @onready var _entrada_humana: EntradaHumana = $Jugador/EntradaHumana
 @onready var _ia_jugador: ControlIA = $Jugador/ControlIA
 @onready var _ia_rival: ControlIA = $Rival/ControlIA
@@ -61,6 +62,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_actualizar_barra_ritmo()
 	match fase:
 		Fases.Fase.PREPARANDO:
 			_t_fase -= delta
@@ -77,6 +79,15 @@ func _physics_process(delta: float) -> void:
 					_preparar_saque()
 
 
+# Barra de ritmo del peloteo: sube con cada golpe seguido y baja con los globos.
+func _actualizar_barra_ritmo() -> void:
+	if bola.ritmo == null:
+		return
+	var progreso: float = bola.ritmo.progreso(bola.golpes_en_juego)
+	_barra_ritmo.size.x = roundf(58.0 * progreso)
+	_barra_ritmo.color = Color(1.0, 1.0 - progreso * 0.75, 1.0 - progreso * 0.85)
+
+
 func _preparar_saque() -> void:
 	fase = Fases.Fase.PREPARANDO
 	_t_fase = tiempo_preparar
@@ -85,6 +96,7 @@ func _preparar_saque() -> void:
 	bola.visible = false
 	bola.ultimo_golpeador = Personaje.NINGUNO
 	golpes_en_punto = 0
+	bola.golpes_en_juego = 0
 	servidor = ((primer_servidor + _total_puntos / saque_cada) % 2) as Personaje.Lado
 	var rect: Rect2 = pista.rect_juego()
 	var centro: float = rect.position.x + rect.size.x * 0.5
