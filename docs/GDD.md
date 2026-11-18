@@ -63,9 +63,11 @@ Pilares de diseño:
 ## 5. Controles
 
 - [DECIDIDO] El input son órdenes del Input Map, nunca teclas concretas.
-- [PROPUESTA] Acciones: `mover` (stick/WASD), `golpear`, `dash`, `plancha`, `especial`. Teclado y mando desde el día 1.
+- [PROPUESTA] Acciones: `mover` (stick/WASD), `golpear`, `globo`, `dash`, `plancha`, `especial`. Teclado y mando desde el día 1.
 - [PROPUESTA] La **dirección** del golpe sale del stick en el momento del contacto: izquierda/derecha para colocar; delante para profundo y potente, atrás para dejada (bola corta).
-- [ABIERTO] ¿Botón de **globo**? Sin globo, un rival pegado a la red (la madre buscando parry, el ninja de la vieja gloria) solo se puede pasar por los lados. Recomiendo añadirlo, pero son 5 botones.
+- [DECIDIDO] **Globo con botón propio** (`globo`). Sirve contra rivales pegados a la red (la madre buscando parry, el ninja de la vieja gloria), que de otro modo solo se pasan por los lados.
+- [PROPUESTA] El globo es un golpe alto y lento (tiempo de vuelo largo, potencia baja). Da tiempo al rival para recolocarse, así que no es gratis. La dirección sale del stick como en el golpe normal.
+- [PROPUESTA] Sobre el golpe de la bola: tipo de golpe (normal, globo, dejada...) es un dato de la bola (`TipoGolpe`) y no código aparte, para que la física y la IA los traten igual.
 
 ## 6. Movimientos del jugador
 
@@ -243,13 +245,13 @@ Una rama por fase, un commit por tarea. No se avanza hasta que la fase sea diver
 - **Feel:** todo depende de la fase 1. Si no engancha, no se sigue.
 - **IA:** es lo más caro. Una IA "injusta" mata el juego en directo.
 - **Legibilidad:** bola pequeña, mucha acción, trucos con señuelos. La regla "la sombra no miente" es lo que lo hace jugable.
-- **Botones:** 5 acciones (golpear, dash, plancha, especial, y quizá globo) son muchas para enseñar sin tutorial. Hace falta sala de entrenamiento.
+- **Botones:** 6 acciones (golpear, globo, dash, plancha, especial y mover) son muchas para enseñar sin tutorial. Hace falta sala de entrenamiento.
 - **Arte:** 3 rivales dibujados a mano. Definir de antemano cuántas poses por rival.
 
 ## 18. Puntos [ABIERTOS] resumidos
 
 1. Qué hace el golpe especial (A/B/C).
-2. Globo: botón propio o no.
+2. (Resuelto: globo con botón propio.)
 3. Número real de etapas por rival (2 vs 3).
 4. Último tramo de la vieja gloria: "a los 7" o "últimos 3 puntos".
 5. 10–10: punto de oro o ganar por 2.
