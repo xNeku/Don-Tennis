@@ -5,4 +5,4 @@
 [node name="DemoPartido" instance=ExtResource("1_partido")]
 jugador_es_humano = false
 salir_tras_puntos = 3
-semilla = 13
+semilla = 29

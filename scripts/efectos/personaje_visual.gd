@@ -64,7 +64,9 @@ func _animar() -> void:
 			_por_progreso(&"knockup", minf(_p.progreso * 2.3, 1.0))
 			_alza = sin(minf(_p.progreso / 0.4375, 1.0) * PI) * 14.0
 		_:
-			if _p.vel.length() > 14.0:
+			if _p.derrapando:
+				_en_bucle(&"derrape")
+			elif _p.vel.length() > 14.0:
 				_en_bucle(&"correr")
 			else:
 				_en_bucle(&"quieto")

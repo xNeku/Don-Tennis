@@ -16,6 +16,8 @@ signal rodar_iniciado()
 signal plancha_iniciada()
 signal plancha_terminada(acierto: bool)
 signal knockup_iniciado()
+## Cambio brusco de sentido a velocidad: el personaje derrapa y pierde unas décimas.
+signal derrape_iniciado()
 
 const NINGUNO: int = -1
 
@@ -44,6 +46,8 @@ var swing_saque: bool = false
 var swing_conectado: bool = false
 var cooldown_rodar: float = 0.0
 var cooldown_plancha: float = 0.0
+## Verdadero mientras derrapa tras un cambio brusco de sentido.
+var derrapando: bool = false
 
 var _swing_t: float = 0.0
 var _tiempo_estado: float = 0.0
@@ -51,6 +55,7 @@ var _duracion_estado: float = 0.0
 var _dir_accion: Vector2 = Vector2.ZERO
 var _plancha_acierto: bool = false
 var _t_polvo: float = 0.0
+var _derrape_t: float = 0.0
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
@@ -141,13 +146,35 @@ func _libre(delta: float) -> void:
 
 
 func _mover_libre(dir: Vector2, factor: float, delta: float, girar: bool) -> void:
+	var rapidez: float = vel.length()
+	# Cambio brusco de sentido a velocidad: derrape (peso del personaje).
+	if _derrape_t <= 0.0 and not auto_activo and dir.length() > 0.3 \
+			and rapidez >= params.derrape_velocidad_min and vel.normalized().dot(dir.normalized()) < -0.35:
+		_derrape_t = params.derrape_duracion * clampf(rapidez / params.velocidad_max, 0.0, 1.0)
+		polvo.emit(position, 6)
+		_t_polvo = 0.06
+		derrape_iniciado.emit()
+	derrapando = _derrape_t > 0.0
+	if derrapando:
+		_derrape_t -= delta
+		# Desliza: fricción fuerte sobre el movimiento anterior y poco control hacia el nuevo sentido.
+		vel = vel.move_toward(Vector2.ZERO, params.derrape_friccion * delta)
+		if dir.length() > 0.1:
+			vel += dir * params.aceleracion * params.derrape_control * delta
+		if _t_polvo <= 0.0:
+			polvo.emit(position, 2)
+			_t_polvo = 0.06
+		position += vel * delta
+		if girar and absf(vel.x) > 12.0:
+			mirando_derecha = vel.x > 0.0
+		return
 	var objetivo: Vector2 = dir * params.velocidad_max * factor
 	var aceleracion: float = params.aceleracion if dir.length() > 0.1 else params.deceleracion
-	# Frenazo o cambio de sentido: polvo.
-	if dir.length() > 0.1 and vel.dot(dir) < 0.0 and vel.length() > 55.0 and _t_polvo <= 0.0:
+	if dir.length() <= 0.1 and rapidez > 85.0 and _t_polvo <= 0.0:
+		# Frenazo en seco desde la carrera.
 		polvo.emit(position, 3)
 		_t_polvo = 0.2
-	elif vel.length() > 80.0 and _t_polvo <= 0.0:
+	elif rapidez > 80.0 and _t_polvo <= 0.0:
 		polvo.emit(position, 1)
 		_t_polvo = 0.24
 	vel = vel.move_toward(objetivo, aceleracion * delta)

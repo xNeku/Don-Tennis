@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" path="res://art/placeholder/personajes/jugador_plancha.png" id="t_plancha"]
 [ext_resource type="Texture2D" path="res://art/placeholder/personajes/jugador_tirado.png" id="t_tirado"]
 [ext_resource type="Texture2D" path="res://art/placeholder/personajes/jugador_knockup.png" id="t_knockup"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/jugador_derrape.png" id="t_derrape"]
 
 [sub_resource type="Resource" id="Resource_quieto"]
 script = ExtResource("2_anim")
@@ -67,7 +68,14 @@ textura = ExtResource("t_knockup")
 fps = 8.0
 bucle = false
 
+[sub_resource type="Resource" id="Resource_derrape"]
+script = ExtResource("2_anim")
+nombre = &"derrape"
+textura = ExtResource("t_derrape")
+fps = 12.0
+bucle = true
+
 [resource]
 script = ExtResource("1_hoja")
 tamano_frame = Vector2i(48, 48)
-animaciones = Array[ExtResource("2_anim")]([SubResource("Resource_quieto"), SubResource("Resource_correr"), SubResource("Resource_golpe"), SubResource("Resource_globo"), SubResource("Resource_rodar"), SubResource("Resource_plancha"), SubResource("Resource_tirado"), SubResource("Resource_knockup")])
+animaciones = Array[ExtResource("2_anim")]([SubResource("Resource_quieto"), SubResource("Resource_correr"), SubResource("Resource_golpe"), SubResource("Resource_globo"), SubResource("Resource_rodar"), SubResource("Resource_plancha"), SubResource("Resource_tirado"), SubResource("Resource_knockup"), SubResource("Resource_derrape")])

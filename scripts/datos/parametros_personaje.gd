@@ -5,8 +5,18 @@ extends Resource
 
 @export_group("Movimiento")
 @export var velocidad_max: float = 105.0
-@export var aceleracion: float = 900.0
-@export var deceleracion: float = 1100.0
+@export var aceleracion: float = 800.0
+@export var deceleracion: float = 900.0
+
+@export_group("Inercia y derrape")
+## Si cambias de sentido a más velocidad que esta, derrapas en vez de girar al instante.
+@export var derrape_velocidad_min: float = 55.0
+## Duración del derrape a toda velocidad (se acorta si vas más lento). Es el tiempo que pierdes.
+@export var derrape_duracion: float = 0.25
+## Cuánto frena el derrape el movimiento anterior (unidades/s²).
+@export var derrape_friccion: float = 420.0
+## Fracción de la aceleración que tienes para empezar a ir en el nuevo sentido mientras derrapas.
+@export_range(0.0, 1.0, 0.05) var derrape_control: float = 0.15
 
 @export_group("Golpe")
 ## Tiempo desde pulsar hasta que la raqueta puede golpear.

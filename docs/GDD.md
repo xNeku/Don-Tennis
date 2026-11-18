@@ -125,6 +125,13 @@ Pilares de diseño:
 - [PROPUESTA] Cuanto más potente la bola, más te **empuja** hacia atrás al recibirla. Por encima de un umbral y si la recibes en la zona delantera, es **knockup**: sales volando hacia atrás y quedas aturdido ~0,8 s.
 - [PROPUESTA] Un **parry o golpe perfecto sobre una bola potente anula el empuje** (la recibes sin moverte). Es el contrajuego activo.
 
+### 6.8 Inercia y derrape
+- [DECIDIDO] **El movimiento tiene peso.** Si corres a tope hacia un lado y te cruzan la bola al otro, no puedes girar al instante: pierdes unas décimas de segundo cruciales.
+- [PROPUESTA] Implementado: un cambio brusco de sentido a más de 55 unidades/s provoca un **derrape** (hasta 0,25 s a velocidad máxima). Durante el derrape sigues deslizando en el sentido anterior, con poco control hacia el nuevo. Girar a tope cuesta 0,38 s frente a 0,25 s sin derrape (+0,13 s). Los valores están en `ParametrosPersonaje` (grupo "Inercia y derrape").
+- [PROPUESTA] Aviso visual para que se lea como inercia y no como retraso del mando: animación de derrape (cuerpo inclinado, pies abiertos) y polvo. A poca velocidad se gira sin derrapar.
+- [PROPUESTA] Las mismas reglas valen para la IA, así que los rivales también pierden tiempo al cruzarles la bola.
+- [ABIERTO] ¿El dash puede cancelar el derrape (recuperación instantánea a cambio del cooldown)? Daría una decisión más al jugador.
+
 ## 7. Saque
 
 - [DECIDIDO] El saque es un concepto complicado de llevar y hay que resolverlo.
@@ -162,6 +169,14 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 ### Zona
 - [DECIDIDO] "La zona" es el nombre de las habilidades/eventos especiales de los rivales en determinado momento.
 - [PROPUESTA] Una zona es una secuencia de N golpes con reglas modificadas, con aviso al empezar (tinte de pantalla, sonido, pose del rival) y una **ventana de castigo** al terminar (el rival queda agotado 1 punto, por ejemplo).
+
+### Lectura de los golpes del rival (wind-up)
+- [DECIDIDO] **La dificultad está en leer los píxeles del rival.** Cada tipo de golpe (cortado, topspin, dejada) tiene una animación de preparación (wind-up) propia y muy específica, y el jugador tiene que leerla para anticipar el golpe **antes de que la raqueta impacte**. Es la implementación directa de la regla de justicia n.º 3 (todo truco tiene aviso).
+- [PROPUESTA] El wind-up debe durar al menos ~0,25 s y empezar mientras la bola aún vuela. La preparación del rival es más larga que la del jugador (en `ParametrosPersonaje`, `arranque`), y la IA ya adapta el momento del golpe a ese valor.
+- [PROPUESTA] Cada golpe necesita una silueta distinta a 28 px de alto (trayectoria de la raqueta y postura de las piernas), porque el color o el detalle fino no se leen en movimiento.
+- [PROPUESTA] Más adelante, **fintas** (wind-up falso) en rivales avanzados, como la vieja gloria.
+- [ABIERTO] **Qué hace cada golpe en la bola.** Propuesta: topspin = arco alto, bota alto y rápido hacia delante (hay que retroceder); cortado = arco bajo, bota corto y se frena (hay que adelantarse); dejada = muy corta y suave (hay que correr, rodar o hacer plancha). Hoy solo existen el golpe normal, el globo y la dejada por stick.
+- [ABIERTO] ¿El jugador también tiene esos golpes? ¿Cómo se ejecutan con el mando sin añadir botones?
 
 ## 10. Rivales de la Copa Pueblo
 
@@ -288,6 +303,7 @@ Jugable: jugador (mando o teclado) contra un rival con IA base, partidos a 11, s
 - [ABIERTO] ¿Debe haber más knockups? Opciones: que un parry fallido también cuente, o que los rivales tengan golpes potentes propios (las "zonas" del §9).
 - [PROPUESTA] **Reglas de punto:** bote fuera, bote en tu campo, red o doble bote del rival. Un lanzamiento de saque que bota sin golpearse se repite sin penalizar.
 - [ABIERTO] Sin implementar: golpe especial (§6.6, falta decidir qué hace), punto de oro en 10-10, sonido, menús, pausa.
+- Inercia y derrape implementados (§6.8). La lectura de golpes del rival (wind-up) está decidida en el diseño pero sin implementar (§9).
 - Game feel implementado: hitstop (pausa del árbol, 0,04-0,13 s), sacudida de cámara a píxel entero, destello, textos flotantes (PERFECTO, PARRY, KNOCKUP...), polvo al rodar, frenar y caer, estela de la bola potente, arco de golpe, color de la bola según potencia y destello del personaje.
 - Descartado por ser pixel art: squash & stretch (deforma los píxeles).
 
