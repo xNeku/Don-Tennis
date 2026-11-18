@@ -16,6 +16,8 @@ extends Node2D
 @export var texturas_bola: Array[Texture2D] = []
 @export var texturas_sombra: Array[Texture2D] = []
 @export var texturas_marcador: Array[Texture2D] = []
+## Color del cuerpo según la potencia del último golpe (GDD §12).
+@export var rampa: RampaPotencia
 @export var color_marcador_dentro: Color = Color(1.0, 1.0, 1.0, 1.0)
 @export var color_marcador_fuera: Color = Color(0.55, 0.57, 0.65, 1.0)
 
@@ -53,6 +55,7 @@ func _actualizar() -> void:
 	var indice: int = _indice_tamano(escala)
 	global_position = pista.proyectar(_bola.position).round()
 	_poner_textura(_cuerpo, texturas_bola, indice)
+	_cuerpo.modulate = rampa.color_para(_bola.potencia) if rampa != null else Color.WHITE
 	_cuerpo.position = Vector2(0.0, -roundf(_bola.z * pista.factor_altura * escala))
 
 	# La sombra encoge al subir la bola.

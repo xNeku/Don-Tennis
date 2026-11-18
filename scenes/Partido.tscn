@@ -1,0 +1,91 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/mundo/partido.gd" id="1_part"]
+[ext_resource type="PackedScene" path="res://scenes/Pista25D.tscn" id="2_pista"]
+[ext_resource type="PackedScene" path="res://scenes/Personaje.tscn" id="3_per"]
+[ext_resource type="PackedScene" path="res://scenes/Bola.tscn" id="4_bola"]
+[ext_resource type="Script" path="res://scripts/efectos/efectos_golpe.gd" id="5_efe"]
+[ext_resource type="Script" path="res://scripts/efectos/camara_feel.gd" id="6_cam"]
+[ext_resource type="Script" path="res://scripts/jugador/entrada_humana.gd" id="7_ent"]
+[ext_resource type="Script" path="res://scripts/enemigos/control_ia.gd" id="8_ia"]
+[ext_resource type="Resource" path="res://data/personajes/jugador_params.tres" id="9_pj"]
+[ext_resource type="Resource" path="res://data/personajes/rival_params.tres" id="10_pr"]
+[ext_resource type="Resource" path="res://data/personajes/jugador_hoja.tres" id="11_hj"]
+[ext_resource type="Resource" path="res://data/personajes/rival_hoja.tres" id="12_hr"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_personaje_jugador.png" id="13_sj"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_personaje_rival.png" id="14_sr"]
+[ext_resource type="Resource" path="res://data/ia/autoplay_ia.tres" id="15_iaj"]
+[ext_resource type="Resource" path="res://data/ia/rival_ia.tres" id="16_iar"]
+[ext_resource type="Resource" path="res://data/feel/rampa_potencia.tres" id="17_rampa"]
+[ext_resource type="Texture2D" path="res://art/placeholder/destello_15.png" id="18_d15"]
+[ext_resource type="Texture2D" path="res://art/placeholder/destello_11.png" id="19_d11"]
+[ext_resource type="Texture2D" path="res://art/placeholder/destello_7.png" id="20_d7"]
+[ext_resource type="Texture2D" path="res://art/placeholder/polvo.png" id="21_polvo"]
+
+[node name="Partido" type="Node2D"]
+script = ExtResource("1_part")
+
+[node name="Pista" parent="." instance=ExtResource("2_pista")]
+
+[node name="Rival" parent="." instance=ExtResource("3_per")]
+position = Vector2(90, -12)
+params = ExtResource("10_pr")
+lado = 0
+hoja = ExtResource("12_hr")
+sombra = ExtResource("14_sr")
+
+[node name="ControlIA" type="Node" parent="Rival"]
+script = ExtResource("8_ia")
+params = ExtResource("16_iar")
+
+[node name="Jugador" parent="." instance=ExtResource("3_per")]
+position = Vector2(90, 232)
+params = ExtResource("9_pj")
+lado = 1
+hoja = ExtResource("11_hj")
+sombra = ExtResource("13_sj")
+
+[node name="EntradaHumana" type="Node" parent="Jugador"]
+script = ExtResource("7_ent")
+
+[node name="ControlIA" type="Node" parent="Jugador"]
+script = ExtResource("8_ia")
+params = ExtResource("15_iaj")
+
+[node name="Bola" parent="." instance=ExtResource("4_bola")]
+
+[node name="Efectos" type="Node2D" parent="."]
+script = ExtResource("5_efe")
+rampa = ExtResource("17_rampa")
+destellos = Array[Texture2D]([ExtResource("18_d15"), ExtResource("19_d11"), ExtResource("20_d7")])
+textura_polvo = ExtResource("21_polvo")
+
+[node name="Camara" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+script = ExtResource("6_cam")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Marcador" type="Label" parent="UI"]
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 124.0
+offset_bottom = 15.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "RIVAL 0 - 0 TÚ"
+
+[node name="Mensaje" type="Label" parent="UI"]
+offset_left = 4.0
+offset_top = 124.0
+offset_right = 118.0
+offset_bottom = 140.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1

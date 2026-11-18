@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ParametrosPersonaje" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/parametros_personaje.gd" id="1_params"]
+[ext_resource type="Resource" path="res://data/golpes/normal.tres" id="2_normal"]
+[ext_resource type="Resource" path="res://data/golpes/globo.tres" id="3_globo"]
+[ext_resource type="Resource" path="res://data/golpes/saque.tres" id="4_saque"]
+
+[resource]
+script = ExtResource("1_params")
+tipo_normal = ExtResource("2_normal")
+tipo_globo = ExtResource("3_globo")
+tipo_saque = ExtResource("4_saque")

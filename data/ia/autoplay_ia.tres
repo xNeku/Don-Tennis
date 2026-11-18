@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ParametrosIA" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/parametros_ia.gd" id="1_ia"]
+
+[resource]
+script = ExtResource("1_ia")
+reaccion = 0.2
+error_posicion = 4.0
+error_timing = 0.03
+agresividad = 0.5
+distancia_base = 56.0
+prob_globo = 0.12
+prob_dejada = 0.22

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="RampaPotencia" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/rampa_potencia.gd" id="1_rampa"]
+
+[resource]
+script = ExtResource("1_rampa")

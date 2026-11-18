@@ -6,6 +6,6 @@
 script = ExtResource("1_tipo")
 id = &"normal"
 nombre = "Normal"
-tiempo_vuelo = 0.85
+tiempo_vuelo = 0.68
 altura_inicial = 22.0
 potencia = 0.3

@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="HojaAnimaciones" load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/hoja_animaciones.gd" id="1_hoja"]
+[ext_resource type="Script" path="res://scripts/datos/animacion_hoja.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_quieto.png" id="t_quieto"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_correr.png" id="t_correr"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_golpe.png" id="t_golpe"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_globo.png" id="t_globo"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_rodar.png" id="t_rodar"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_plancha.png" id="t_plancha"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_tirado.png" id="t_tirado"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personajes/rival_knockup.png" id="t_knockup"]
+
+[sub_resource type="Resource" id="Resource_quieto"]
+script = ExtResource("2_anim")
+nombre = &"quieto"
+textura = ExtResource("t_quieto")
+fps = 3.0
+bucle = true
+
+[sub_resource type="Resource" id="Resource_correr"]
+script = ExtResource("2_anim")
+nombre = &"correr"
+textura = ExtResource("t_correr")
+fps = 10.0
+bucle = true
+
+[sub_resource type="Resource" id="Resource_golpe"]
+script = ExtResource("2_anim")
+nombre = &"golpe"
+textura = ExtResource("t_golpe")
+fps = 8.0
+bucle = false
+
+[sub_resource type="Resource" id="Resource_globo"]
+script = ExtResource("2_anim")
+nombre = &"globo"
+textura = ExtResource("t_globo")
+fps = 8.0
+bucle = false
+
+[sub_resource type="Resource" id="Resource_rodar"]
+script = ExtResource("2_anim")
+nombre = &"rodar"
+textura = ExtResource("t_rodar")
+fps = 8.0
+bucle = false
+
+[sub_resource type="Resource" id="Resource_plancha"]
+script = ExtResource("2_anim")
+nombre = &"plancha"
+textura = ExtResource("t_plancha")
+fps = 8.0
+bucle = false
+
+[sub_resource type="Resource" id="Resource_tirado"]
+script = ExtResource("2_anim")
+nombre = &"tirado"
+textura = ExtResource("t_tirado")
+fps = 2.0
+bucle = true
+
+[sub_resource type="Resource" id="Resource_knockup"]
+script = ExtResource("2_anim")
+nombre = &"knockup"
+textura = ExtResource("t_knockup")
+fps = 8.0
+bucle = false
+
+[resource]
+script = ExtResource("1_hoja")
+tamano_frame = Vector2i(40, 40)
+animaciones = Array[ExtResource("2_anim")]([SubResource("Resource_quieto"), SubResource("Resource_correr"), SubResource("Resource_golpe"), SubResource("Resource_globo"), SubResource("Resource_rodar"), SubResource("Resource_plancha"), SubResource("Resource_tirado"), SubResource("Resource_knockup")])

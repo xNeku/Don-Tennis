@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Partido.tscn" id="1_partido"]
+
+[node name="DemoPartido" instance=ExtResource("1_partido")]
+jugador_es_humano = false
+salir_tras_puntos = 3
+semilla = 13

@@ -276,3 +276,18 @@ Una rama por fase, un commit por tarea. No se avanza hasta que la fase sea diver
 6. Derrota: reintento infinito o vidas.
 7. Marcador de caída: siempre o desactivable.
 8. Título del juego.
+
+## 19. Estado de la fase 1 (implementado)
+
+Jugable: jugador (mando o teclado) contra un rival con IA base, partidos a 11, saque, reglas de punto y game feel. Hay una demo IA contra IA (`scenes/pruebas/DemoPartido.tscn`) para ver el juego sin jugar. Valores en `data/` (personajes, IA, golpes, rampa de potencia) y en `Partido`.
+
+- [PROPUESTA] **Golpe normal más plano** (0,68 s de vuelo en vez de 0,85 s). Con el arco alto la bola cruza la red por encima del alcance y el parry era casi imposible. Más rápido también encaja con el ritmo del GDD.
+- [PROPUESTA] **Parry:** golpear sin bote a menos de 38 unidades de la red (bola a menos de 44 de altura). Velocidad ×1,5 y anula el empuje.
+- [PROPUESTA] **Golpe perfecto:** ±0,035 s del punto dulce. Velocidad ×1,22 y potencia +0,3.
+- [PROPUESTA] **Knockup:** al recibir una bola con potencia ≥ 0,55 sin parry ni perfecto, estando a menos de 55 de la red. Solo ocurre al devolver tras el bote cerca de la red, así que es raro (casi solo con dejadas potentes).
+- [ABIERTO] ¿Debe haber más knockups? Opciones: que un parry fallido también cuente, o que los rivales tengan golpes potentes propios (las "zonas" del §9).
+- [PROPUESTA] **Reglas de punto:** bote fuera, bote en tu campo, red o doble bote del rival. Un lanzamiento de saque que bota sin golpearse se repite sin penalizar.
+- [ABIERTO] Sin implementar: golpe especial (§6.6, falta decidir qué hace), punto de oro en 10-10, sonido, menús, pausa.
+- Game feel implementado: hitstop (pausa del árbol, 0,04-0,13 s), sacudida de cámara a píxel entero, destello, textos flotantes (PERFECTO, PARRY, KNOCKUP...), polvo al rodar, frenar y caer, estela de la bola potente, arco de golpe, color de la bola según potencia y destello del personaje.
+- Descartado por ser pixel art: squash & stretch (deforma los píxeles).
+

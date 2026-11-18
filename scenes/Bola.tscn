@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/mundo/bola.gd" id="1_bola"]
 [ext_resource type="Script" path="res://scripts/efectos/bola_visual.gd" id="2_visual"]
 [ext_resource type="Resource" path="res://data/bola/bola_base.tres" id="3_params"]
+[ext_resource type="Resource" path="res://data/feel/rampa_potencia.tres" id="13_rampa"]
 [ext_resource type="Texture2D" path="res://art/placeholder/bola_5.png" id="4_b5"]
 [ext_resource type="Texture2D" path="res://art/placeholder/bola_7.png" id="5_b7"]
 [ext_resource type="Texture2D" path="res://art/placeholder/bola_9.png" id="6_b9"]
@@ -21,6 +22,7 @@ params = ExtResource("3_params")
 [node name="Visual" type="Node2D" parent="."]
 top_level = true
 script = ExtResource("2_visual")
+rampa = ExtResource("13_rampa")
 umbrales_escala = PackedFloat32Array(1.4, 1.7)
 texturas_bola = Array[Texture2D]([ExtResource("4_b5"), ExtResource("5_b7"), ExtResource("6_b9")])
 texturas_sombra = Array[Texture2D]([ExtResource("7_s5"), ExtResource("8_s7"), ExtResource("9_s9")])

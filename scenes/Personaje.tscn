@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/jugador/personaje.gd" id="1_per"]
+[ext_resource type="Script" path="res://scripts/efectos/personaje_visual.gd" id="2_vis"]
+[ext_resource type="Resource" path="res://data/feel/rampa_potencia.tres" id="3_rampa"]
+[ext_resource type="Texture2D" path="res://art/placeholder/arco_s.png" id="4_as"]
+[ext_resource type="Texture2D" path="res://art/placeholder/arco_m.png" id="5_am"]
+[ext_resource type="Texture2D" path="res://art/placeholder/arco_l.png" id="6_al"]
+
+[node name="Personaje" type="Node2D"]
+script = ExtResource("1_per")
+
+[node name="Visual" type="Node2D" parent="."]
+top_level = true
+script = ExtResource("2_vis")
+rampa = ExtResource("3_rampa")
+arcos = Array[Texture2D]([ExtResource("4_as"), ExtResource("5_am"), ExtResource("6_al")])
+
+[node name="Sombra" type="Sprite2D" parent="Visual"]
+
+[node name="Cuerpo" type="AnimatedSprite2D" parent="Visual"]
+
+[node name="Arco" type="Sprite2D" parent="Visual"]
+visible = false

@@ -24,6 +24,8 @@ var potencia: float = 0.0
 ## Segundos desde el último golpe.
 var tiempo_vuelo: float = 0.0
 var rodando: bool = false
+## Lado (Personaje.Lado) de quien la golpeó por última vez; -1 si nadie (p. ej. al lanzar al aire en el saque).
+var ultimo_golpeador: int = -1
 
 
 ## Lanza la bola con velocidades explícitas.
@@ -48,6 +50,53 @@ func lanzar_hacia(origen: Vector2, altura: float, destino: Vector2, tiempo: floa
 	var velocidad: Vector2 = (destino - origen) / tiempo
 	var velocidad_z: float = (0.5 * g * tiempo * tiempo - altura) / tiempo
 	lanzar(origen, altura, velocidad, velocidad_z, pot)
+
+
+## Predicción de la trayectoria con la física actual (sin red). Devuelve muestras
+## {t, pos, z, rebotes} cada `paso` segundos. La IA la usa igual que el ojo humano: es lo que se ve.
+func trayectoria_prevista(duracion: float, paso: float) -> Array:
+	var res: Array = []
+	var p: Vector2 = position
+	var zz: float = z
+	var v: Vector2 = vel
+	var vzz: float = vz
+	var roda: bool = rodando
+	var reb: int = rebotes
+	var g: float = params.gravedad
+	var t: float = 0.0
+	while t < duracion:
+		var restante: float = paso
+		var seguridad: int = 6
+		while restante > 0.0 and seguridad > 0:
+			seguridad -= 1
+			var t_suelo: float = INF
+			if not roda:
+				t_suelo = (vzz + sqrt(vzz * vzz + 2.0 * g * maxf(zz, 0.0))) / g
+			if t_suelo <= restante:
+				p += v * t_suelo
+				vzz -= g * t_suelo
+				zz = 0.0
+				reb += 1
+				var vz_nueva: float = -vzz * params.restitucion
+				v *= params.friccion_rebote
+				if vz_nueva < params.velocidad_minima_rebote:
+					vzz = 0.0
+					roda = true
+				else:
+					vzz = vz_nueva
+				restante -= t_suelo
+			elif roda:
+				p += v * restante
+				v *= exp(-params.friccion_rodar * restante)
+				restante = 0.0
+			else:
+				zz += vzz * restante - 0.5 * g * restante * restante
+				vzz -= g * restante
+				p += v * restante
+				restante = 0.0
+		t += paso
+		res.append({"t": t, "pos": p, "z": zz, "rebotes": reb})
+	return res
 
 
 ## Segundos hasta tocar el suelo con el estado actual.
@@ -136,6 +185,13 @@ func _rebotar() -> void:
 	else:
 		vz = vz_nueva
 	rebote.emit(position, rebotes)
+
+
+## Detiene la bola (se queda donde está) sin emitir `detenida`.
+func parar() -> void:
+	activa = false
+	vel = Vector2.ZERO
+	vz = 0.0
 
 
 func _detener() -> void:
