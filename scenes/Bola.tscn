@@ -1,8 +1,17 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/mundo/bola.gd" id="1_bola"]
 [ext_resource type="Script" path="res://scripts/efectos/bola_visual.gd" id="2_visual"]
 [ext_resource type="Resource" path="res://data/bola/bola_base.tres" id="3_params"]
+[ext_resource type="Texture2D" path="res://art/placeholder/bola_5.png" id="4_b5"]
+[ext_resource type="Texture2D" path="res://art/placeholder/bola_7.png" id="5_b7"]
+[ext_resource type="Texture2D" path="res://art/placeholder/bola_9.png" id="6_b9"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_bola_5.png" id="7_s5"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_bola_7.png" id="8_s7"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_bola_9.png" id="9_s9"]
+[ext_resource type="Texture2D" path="res://art/placeholder/marcador_13.png" id="10_m13"]
+[ext_resource type="Texture2D" path="res://art/placeholder/marcador_17.png" id="11_m17"]
+[ext_resource type="Texture2D" path="res://art/placeholder/marcador_21.png" id="12_m21"]
 
 [node name="Bola" type="Node2D"]
 visible = false
@@ -12,30 +21,17 @@ params = ExtResource("3_params")
 [node name="Visual" type="Node2D" parent="."]
 top_level = true
 script = ExtResource("2_visual")
+umbrales_escala = PackedFloat32Array(1.4, 1.7)
+texturas_bola = Array[Texture2D]([ExtResource("4_b5"), ExtResource("5_b7"), ExtResource("6_b9")])
+texturas_sombra = Array[Texture2D]([ExtResource("7_s5"), ExtResource("8_s7"), ExtResource("9_s9")])
+texturas_marcador = Array[Texture2D]([ExtResource("10_m13"), ExtResource("11_m17"), ExtResource("12_m21")])
 
-[node name="Marcador" type="Node2D" parent="Visual"]
+[node name="Marcador" type="Sprite2D" parent="Visual"]
 top_level = true
+texture = ExtResource("10_m13")
 
-[node name="Relleno" type="Polygon2D" parent="Visual/Marcador"]
-color = Color(1, 1, 1, 0.3)
-polygon = PackedVector2Array(8, 0, 6.93, 2.5, 4, 4.33, 0, 5, -4, 4.33, -6.93, 2.5, -8, 0, -6.93, -2.5, -4, -4.33, 0, -5, 4, -4.33, 6.93, -2.5)
+[node name="Sombra" type="Sprite2D" parent="Visual"]
+texture = ExtResource("7_s5")
 
-[node name="Borde" type="Line2D" parent="Visual/Marcador"]
-points = PackedVector2Array(8, 0, 6.93, 2.5, 4, 4.33, 0, 5, -4, 4.33, -6.93, 2.5, -8, 0, -6.93, -2.5, -4, -4.33, 0, -5, 4, -4.33, 6.93, -2.5)
-closed = true
-width = 1.0
-default_color = Color(1, 1, 1, 1)
-
-[node name="Sombra" type="Polygon2D" parent="Visual"]
-color = Color(0, 0, 0, 0.5)
-polygon = PackedVector2Array(5, 0, 3.54, 1.77, 0, 2.5, -3.54, 1.77, -5, 0, -3.54, -1.77, 0, -2.5, 3.54, -1.77)
-
-[node name="Cuerpo" type="Node2D" parent="Visual"]
-
-[node name="Contorno" type="Polygon2D" parent="Visual/Cuerpo"]
-color = Color(0.1, 0.1, 0.18, 1)
-polygon = PackedVector2Array(4, 0, 2.83, 2.83, 0, 4, -2.83, 2.83, -4, 0, -2.83, -2.83, 0, -4, 2.83, -2.83)
-
-[node name="Relleno" type="Polygon2D" parent="Visual/Cuerpo"]
-color = Color(0.957, 0.945, 0.871, 1)
-polygon = PackedVector2Array(3, 0, 2.12, 2.12, 0, 3, -2.12, 2.12, -3, 0, -2.12, -2.12, 0, -3, 2.12, -2.12)
+[node name="Cuerpo" type="Sprite2D" parent="Visual"]
+texture = ExtResource("4_b5")

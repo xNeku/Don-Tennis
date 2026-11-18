@@ -19,6 +19,7 @@ Arcade de tenis en vista vertical, rápido y difícil, con rivales únicos tipo 
 - Nombres de propiedades de Godot 4 exactos (ej. `Camera2D.enabled`, no `current`). Si dudas de un nombre o una señal, compruébalo en headless en vez de suponerlo.
 - Una escena arrastrada al árbol se instancia como nodo; arrastrada a un campo `PackedScene` del inspector queda como referencia. Ya causó un bug.
 - Los `Control` (ColorRect, ReferenceRect, Label...) dentro de escenas de juego llevan `mouse_filter = Ignore` (2). Por defecto son `Stop` y se comen los clics y toques del juego.
+- **Pixel art** (GDD §3): resolución base 480×270, `stretch/mode=viewport` con escalado entero, filtro `nearest` y `snap_2d_transforms_to_pixel`. Los sprites **nunca se escalan** (ni con `scale` ni por perspectiva): se eligen entre varios tamaños dibujados y las posiciones van a píxel entero. No activar `snap_2d_vertices_to_pixel` (rompe las líneas de 1 px en diagonal). Para repetir una trama sobre un `Polygon2D`: `texture_repeat = 2` (Enabled) y `uv` igual que `polygon`. Los PNG de `art/placeholder/` son provisionales: el humano los sustituye por los suyos.
 - En `.tscn` escritos a mano, las propiedades que apuntan a nodos necesitan `node_paths=PackedStringArray("propiedad")` en la cabecera del nodo.
 
 ## Estructura del repo

@@ -3,8 +3,8 @@ extends Node2D
 ## Clic o toque en la pista = lanza una bola que botará justo ahí.
 ## No es parte del juego final; sirve para sentir la bola, su arco y el marcador de caída.
 
-## Resolución base de esta escena (la vista plana usa 480x270, la 2.5D 640x360).
-@export var resolucion_base: Vector2i = Vector2i(640, 360)
+## Resolución base (píxeles del juego). Pixel art: 480x270, escalado entero.
+@export var resolucion_base: Vector2i = Vector2i(480, 270)
 ## Tipos de golpe disponibles (datos en data/golpes/).
 @export var tipos: Array[TipoGolpe] = []
 ## Segundos entre bolas en modo automático.
@@ -106,8 +106,7 @@ func _poner_huella(punto: Vector2, dentro: bool) -> void:
 	huella.polygon = PackedVector2Array([
 		Vector2(2, 0), Vector2(0, 1.2), Vector2(-2, 0), Vector2(0, -1.2)])
 	huella.color = Color(1, 1, 1, 0.8) if dentro else Color(0.55, 0.57, 0.65, 0.8)
-	huella.position = _pista.proyectar(punto)
-	huella.scale = Vector2.ONE * _pista.escala_en(punto)
+	huella.position = _pista.proyectar(punto).round()
 	_huellas.add_child(huella)
 	var tween: Tween = create_tween()
 	tween.tween_property(huella, "modulate:a", 0.0, 1.5)

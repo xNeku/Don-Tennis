@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/pruebas/fase0.gd" id="1_fase0"]
 [ext_resource type="PackedScene" path="res://scenes/Pista25D.tscn" id="2_pista"]
@@ -7,62 +7,92 @@
 [ext_resource type="Resource" path="res://data/golpes/normal.tres" id="5_normal"]
 [ext_resource type="Resource" path="res://data/golpes/fuerte.tres" id="6_fuerte"]
 [ext_resource type="Resource" path="res://data/golpes/globo.tres" id="7_globo"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personaje_jugador.png" id="8_pj"]
+[ext_resource type="Texture2D" path="res://art/placeholder/personaje_rival.png" id="9_pr"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_personaje_jugador.png" id="10_sj"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_personaje_rival.png" id="11_sr"]
 
 [node name="Fase0" type="Node2D"]
 script = ExtResource("1_fase0")
-resolucion_base = Vector2i(640, 360)
+resolucion_base = Vector2i(480, 270)
 tipos = Array[ExtResource("4_tipo")]([ExtResource("5_normal"), ExtResource("6_fuerte"), ExtResource("7_globo")])
 
 [node name="Pista" parent="." instance=ExtResource("2_pista")]
 
 [node name="Huellas" type="Node2D" parent="."]
 
+[node name="DemoRival" type="Sprite2D" parent="."]
+position = Vector2(289, 80)
+texture = ExtResource("9_pr")
+offset = Vector2(0, -14)
+
+[node name="Sombra" type="Sprite2D" parent="DemoRival"]
+show_behind_parent = true
+position = Vector2(0, -1)
+texture = ExtResource("11_sr")
+
+[node name="DemoJugador" type="Sprite2D" parent="."]
+position = Vector2(192, 189)
+texture = ExtResource("8_pj")
+offset = Vector2(0, -18)
+
+[node name="Sombra" type="Sprite2D" parent="DemoJugador"]
+show_behind_parent = true
+position = Vector2(0, -1)
+texture = ExtResource("10_sj")
+
 [node name="Bola" parent="." instance=ExtResource("3_bola")]
 
 [node name="OrigenMaquina" type="Marker2D" parent="."]
-position = Vector2(320, 50)
+position = Vector2(240, 37)
 
 [node name="Camara" type="Camera2D" parent="."]
-position = Vector2(320, 180)
+position = Vector2(240, 135)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Info" type="Label" parent="UI"]
-offset_left = 4.0
-offset_top = 2.0
-offset_right = 176.0
-offset_bottom = 60.0
+[node name="FondoInfo" type="ColorRect" parent="UI"]
+offset_right = 134.0
+offset_bottom = 48.0
 mouse_filter = 2
-theme_override_font_sizes/font_size = 10
+color = Color(0.04, 0.04, 0.1, 0.8)
+
+[node name="Info" type="Label" parent="UI"]
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 132.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
 text = "Info"
 
 [node name="Botones" type="VBoxContainer" parent="UI"]
-offset_left = 6.0
-offset_top = 262.0
-offset_right = 96.0
-offset_bottom = 356.0
-theme_override_constants/separation = 2
+offset_left = 4.0
+offset_top = 198.0
+offset_right = 62.0
+offset_bottom = 268.0
+theme_override_constants/separation = 1
 
 [node name="Normal" type="Button" parent="UI/Botones"]
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "1 Normal"
 
 [node name="Fuerte" type="Button" parent="UI/Botones"]
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "2 Fuerte"
 
 [node name="Globo" type="Button" parent="UI/Botones"]
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "3 Globo"
 
 [node name="Auto" type="CheckButton" parent="UI/Botones"]
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "T Auto"

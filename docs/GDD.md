@@ -44,11 +44,10 @@ Pilares de diseño:
 - [PROPUESTA] Cámara fija, sin zoom dinámico salvo efectos puntuales (especial, punto decisivo).
 - [PROPUESTA] La pista, las gradas y el árbitro van como **escenas `.tscn` editables** (piezas sueltas: Polygon2D / Sprite2D), para que tú las muevas y dibujes sin tocar código.
 - [DECIDIDO] Diseño visual **simple pero con mucha personalidad**. Pesan más la personalidad y el game feel que el detalle.
-- [ABIERTO] Pixel art o alta resolución. Tendencia del humano: pixel art. Se enseñaron mockups de los dos. Se descartó el estilo "Game Boy" (4 tonos).
-- [PROPUESTA] Ruta pixel art en 2.5D: **sprites de tamaño fijo, sin escalar con la perspectiva**. El jugador (siempre en la mitad cercana) se dibuja a su tamaño (~58 px a 640×360) y el rival (mitad lejana) más pequeño (~44 px). La bola se dibuja en 3-4 tamaños. La perspectiva la da la pista y la diferencia de tamaño entre personajes. Escalar pixel art con la perspectiva deforma píxeles (se vio en los mockups). Con esta ruta se pasaría a escalado entero (modo `viewport`).
-- [PROPUESTA] Resolución base **640×360**. Con pixel art, escalado entero (×2 = 720p, ×3 = 1080p). Con alta resolución, escalado suave (`canvas_items`). 960×540 daría más detalle, pero cada sprite cuesta mucho más de dibujar.
-- [PROPUESTA] Ruta alta resolución: los sprites se **escalan con la profundidad** (más pequeños lejos). Con arte dibujado en alta resolución se ve bien, pero no es pixel art.
-- [ABIERTO] Resolución definitiva, depende de cuánto arte quieras dibujar y del estilo final.
+- [DECIDIDO] **Pixel art en todo el juego** (personajes, pista, red, público, efectos), no solo en los personajes. Referencias del humano: sprites con cabeza grande y pelo con carácter, contorno casi negro y sombra elíptica tramada (dithering); y un tenis con animaciones donde el golpe deja un arco oscuro en media luna, la red es una malla gris tramada y el público es una tira de cabezas.
+- [DECIDIDO] Pixel art de **sprites de tamaño fijo, sin escalar con la perspectiva**. El jugador (siempre en la mitad cercana) se dibuja a su tamaño (~36 px a 480×270) y el rival (mitad lejana) más pequeño (~28 px). La bola tiene 3 tamaños (5, 7 y 9 px) y la lógica elige según la profundidad. La perspectiva la da la pista y la diferencia de tamaño entre personajes. Escalar pixel art con la perspectiva deforma los píxeles.
+- [PROPUESTA] A tan poco tamaño las proporciones de **cabeza grande** se leen mucho mejor y dan personalidad. Los PNG de `art/placeholder/` son provisionales (programmer art generado por código) y se sustituyen por los dibujados a mano cambiando la ruta del sprite, sin tocar código.
+- [DECIDIDO] Resolución base **480×270**, modo `viewport` con escalado entero (×3 = 810p, ×4 = 1080p, ×8 = 4K), filtro `nearest` y posiciones a píxel entero. La bola mide 5-9 px y se lee bien en un juego rápido. Sin escalado no entero.
 
 ### Información de la bola
 
@@ -210,6 +209,9 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 - [PROPUESTA] Paleta base por pista (no estrictamente reducida) y una **rampa de rojos de 5 pasos** reservada para la potencia. La bola siempre con máximo contraste y borde.
 - [PROPUESTA] Niveles de potencia: normal, fuerte, muy fuerte, brutal, especial. La rampa es un Resource editable.
 - [PROPUESTA] Catálogo de feedback: hitstop (60-90 ms perfecto, ~120 ms especial), sacudida proporcional a la potencia, destello, estela de la bola, polvo al rodar y al frenar, squash & stretch, texto flotante ("PERFECTO", "PARRY", "KNOCKUP"), tinte de pantalla en la zona, cambio de música.
+- [PROPUESTA] **Arco de golpe** (media luna oscura que sigue a la raqueta al golpear, como en la referencia) como efecto base. Crece con la potencia y se tiñe con la rampa de rojos.
+- [PROPUESTA] **Animaciones por estado**, cada una un sprite sheet dibujado a mano (`AnimatedSprite2D` o `AnimationPlayer`): quieto, correr, golpe normal, globo, dash (rodar), plancha, caída y levantarse, knockup, celebrar y perder. La lógica no depende de las animaciones: la animación sigue a los estados y la lógica emite eventos.
+- [PROPUESTA] El rival comparte esa lista y añade estados propios de cada quirk (por ejemplo, fintar, avance ninja, entrar en la zona), para que los trucos tengan su aviso visual.
 - [PROPUESTA] Retrato de reacción del rival a cada punto (una viñeta grande, arte barato con mucha personalidad).
 
 ## 13. Árbitro y audio
@@ -264,5 +266,4 @@ Una rama por fase, un commit por tarea. No se avanza hasta que la fase sea diver
 5. 10–10: punto de oro o ganar por 2.
 6. Derrota: reintento infinito o vidas.
 7. Marcador de caída: siempre o desactivable.
-8. Pixel art o alta resolución (tendencia: pixel art) y resolución (640×360 propuesta).
-9. Título del juego.
+8. Título del juego.
