@@ -15,6 +15,7 @@ Todos los números son sugerencias y viven como `@export` o en un Resource, para
 - [DECIDIDO] Estructura tipo *Punch-Out!!*: cada rival es un jefe con carisma, truco propio y comportamiento que cambia durante el partido. Sin roguelike.
 - [DECIDIDO] Un solo personaje jugable (personalizable en lo básico).
 - [DECIDIDO] Precio objetivo: 2,99 € en itch.io, 4,99 € en Steam. Juego corto: 2 torneos en la versión completa.
+- [DECIDIDO] **Plataforma: PC (pantallas normales)**, pensado para jugarse con **mando**, que tiene más sentido para un arcade rápido de reflejos, y también con teclado. No se diseña para táctil ni para tablet: la tablet es solo donde el humano edita y prueba.
 - [DECIDIDO] Lo más importante es que la jugabilidad sea buena. Si pegar a la bola no es adictivo, el resto da igual.
 - [DECIDIDO] Rivales difíciles, cada uno más que el anterior, carismáticos y odiosos.
 
@@ -70,6 +71,12 @@ Pilares de diseño:
 
 - [DECIDIDO] El input son órdenes del Input Map, nunca teclas concretas.
 - [PROPUESTA] Acciones: `mover` (stick/WASD), `golpear`, `globo`, `dash`, `plancha`, `especial`. Teclado y mando desde el día 1.
+- [DECIDIDO] **Mando y teclado, con el mando como referencia de diseño.** Ningún flujo (menús incluidos) requiere ratón.
+- [PROPUESTA] Mando (nombres estándar Xbox/Steam Deck): stick izquierdo o cruceta = mover y dirigir el golpe; A = golpear; B = globo; X = dash; Y = plancha; RT o RB = especial; Start = pausa.
+- [PROPUESTA] Teclado: WASD = mover y dirigir; J = golpear; K = globo; L = dash; I = plancha; U = especial; Esc = pausa.
+- [PROPUESTA] Stick analógico con zona muerta pequeña (~0,2). La dirección del golpe se cuantiza de forma suave (izquierda / centro / derecha y corto / medio / profundo) para que apuntar sea legible y repetible, sin depender del ángulo exacto del stick.
+- [PROPUESTA] **Vibración** del mando ligada a eventos de la lógica: golpe perfecto (corta), parry (media), recibir un bolón (fuerte) y knockup (fuerte y larga). Forma parte del game feel.
+- [ABIERTO] ¿La dirección del golpe sale del mismo stick izquierdo que mueve (propuesta: sí, una mano mueve y apunta y la otra pulsa botones) o de un segundo stick?
 - [PROPUESTA] La **dirección** del golpe sale del stick en el momento del contacto: izquierda/derecha para colocar; delante para profundo y potente, atrás para dejada (bola corta).
 - [DECIDIDO] **Globo con botón propio** (`globo`). Sirve contra rivales pegados a la red (la madre buscando parry, el ninja de la vieja gloria), que de otro modo solo se pasan por los lados.
 - [PROPUESTA] El globo es un golpe alto y lento (tiempo de vuelo largo, potencia baja). Da tiempo al rival para recolocarse, así que no es gratis. La dirección sale del stick como en el golpe normal.
@@ -256,7 +263,7 @@ Una rama por fase, un commit por tarea. No se avanza hasta que la fase sea diver
 - **Feel:** todo depende de la fase 1. Si no engancha, no se sigue.
 - **IA:** es lo más caro. Una IA "injusta" mata el juego en directo.
 - **Legibilidad:** bola pequeña, mucha acción, trucos con señuelos. La regla "la sombra no miente" es lo que lo hace jugable.
-- **Botones:** 6 acciones (golpear, globo, dash, plancha, especial y mover) son muchas para enseñar sin tutorial. Hace falta sala de entrenamiento.
+- **Botones:** 5 acciones más mover caben en el mando (4 botones de cara y un gatillo), pero son muchas para enseñar sin tutorial. Hace falta sala de entrenamiento. Además, mover y apuntar comparten stick (ver §5).
 - **Arte:** 3 rivales dibujados a mano. Definir de antemano cuántas poses por rival.
 
 ## 18. Puntos [ABIERTOS] resumidos

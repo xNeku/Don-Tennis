@@ -1,6 +1,6 @@
 extends Node2D
 ## Banco de pruebas de la fase 0: una máquina de bolas en el lado del rival.
-## Clic o toque en la pista = lanza una bola que botará justo ahí.
+## Clic en la pista = lanza una bola que botará justo ahí.
 ## No es parte del juego final; sirve para sentir la bola, su arco y el marcador de caída.
 
 ## Resolución base (píxeles del juego). Pixel art: 480x270, escalado entero.
@@ -17,12 +17,9 @@ extends Node2D
 @onready var _origen: Marker2D = $OrigenMaquina
 @onready var _huellas: Node2D = $Huellas
 @onready var _info: Label = $UI/Info
-@onready var _boton_normal: Button = $UI/Botones/Normal
-@onready var _boton_fuerte: Button = $UI/Botones/Fuerte
-@onready var _boton_globo: Button = $UI/Botones/Globo
-@onready var _boton_auto: CheckButton = $UI/Botones/Auto
 
 var _indice: int = 0
+var _auto_activo: bool = false
 var _prediccion: Vector2 = Vector2.ZERO
 var _error_prediccion: float = -1.0
 var _t_auto: float = 0.0
@@ -38,9 +35,6 @@ func _ready() -> void:
 		_toco_red = true
 		_ultimo_evento = "choca con la red")
 	_bola.cruzo_red.connect(func(_abajo: bool) -> void: _ultimo_evento = "pasa la red")
-	_boton_normal.pressed.connect(func() -> void: _elegir(0))
-	_boton_fuerte.pressed.connect(func() -> void: _elegir(1))
-	_boton_globo.pressed.connect(func() -> void: _elegir(2))
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -53,11 +47,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed(&"pruebas_tipo_globo"):
 		_elegir(2)
 	elif event.is_action_pressed(&"pruebas_auto"):
-		_boton_auto.button_pressed = not _boton_auto.button_pressed
+		_auto_activo = not _auto_activo
 
 
 func _process(delta: float) -> void:
-	if _boton_auto.button_pressed:
+	if _auto_activo:
 		_t_auto -= delta
 		if _t_auto <= 0.0:
 			_t_auto = intervalo_auto
@@ -116,5 +110,5 @@ func _poner_huella(punto: Vector2, dentro: bool) -> void:
 func _actualizar_info() -> void:
 	var nombre: String = tipos[_indice].nombre if not tipos.is_empty() else "-"
 	var error: String = "-" if _error_prediccion < 0.0 else "%.2f px" % _error_prediccion
-	_info.text = "Golpe: %s  |  %s\nBotes: %d  |  Error marcador: %s\nClic: lanzar\n1/2/3: golpe   T: auto" % [
-		nombre, _ultimo_evento, _bola.rebotes, error]
+	_info.text = "Golpe: %s  |  %s\nBotes: %d  |  Error marcador: %s\nClic: lanzar\n1/2/3: golpe   T: auto (%s)" % [
+		nombre, _ultimo_evento, _bola.rebotes, error, "SI" if _auto_activo else "no"]

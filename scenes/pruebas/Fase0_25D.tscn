@@ -65,34 +65,3 @@ offset_bottom = 40.0
 mouse_filter = 2
 theme_override_font_sizes/font_size = 8
 text = "Info"
-
-[node name="Botones" type="VBoxContainer" parent="UI"]
-offset_left = 4.0
-offset_top = 198.0
-offset_right = 62.0
-offset_bottom = 268.0
-theme_override_constants/separation = 1
-
-[node name="Normal" type="Button" parent="UI/Botones"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-text = "1 Normal"
-
-[node name="Fuerte" type="Button" parent="UI/Botones"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-text = "2 Fuerte"
-
-[node name="Globo" type="Button" parent="UI/Botones"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-text = "3 Globo"
-
-[node name="Auto" type="CheckButton" parent="UI/Botones"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-text = "T Auto"

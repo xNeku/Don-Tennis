@@ -8,14 +8,14 @@ Arcade de tenis en vista vertical, rápido y difícil, con rivales únicos tipo 
 ## Reparto de roles
 - El humano diseña, decide y dibuja todo el arte a mano. Tú escribes el código.
 - **Nada de arte con IA.** Mientras no hay arte, "programmer art": formas dibujadas por código (`_draw()`, polígonos, rectángulos). El arte final entra cambiando rutas en los datos, sin tocar código.
-- El humano trabaja casi todo desde una tablet Android (editor de Godot para Android + Termux con git). No asumas escritorio.
+- El humano edita y prueba desde una tablet Android (editor de Godot para Android + Termux con git), pero **el juego apunta a PC (pantallas normales) con mando y teclado**. La tablet es solo su herramienta de trabajo: no diseñes ni optimices para táctil ni para pantalla pequeña.
 - Tú trabajas en un entorno cloud con el repo clonado y el motor en modo headless para validar.
 
 ## Stack
-- Godot **4.7.2** (la del editor Android del humano). No uses APIs más nuevas ni asumas otra versión.
+- Godot **4.7.2** (la versión del editor del humano). No uses APIs más nuevas ni asumas otra versión.
 - Solo GDScript **tipado** (`var x: float`, `func f() -> void`). Sin addons que requieran compilar.
 - Escenas en formato texto (`.tscn`). Resources en texto (`.tres`).
-- Renderer: Compatibility.
+- Renderer: Compatibility (ligero y válido en cualquier GPU; para un 2D pixel art no se pierde nada y además corre en el editor Android donde el humano prueba).
 - Nombres de propiedades de Godot 4 exactos (ej. `Camera2D.enabled`, no `current`). Si dudas de un nombre o una señal, compruébalo en headless en vez de suponerlo.
 - Una escena arrastrada al árbol se instancia como nodo; arrastrada a un campo `PackedScene` del inspector queda como referencia. Ya causó un bug.
 - Los `Control` (ColorRect, ReferenceRect, Label...) dentro de escenas de juego llevan `mouse_filter = Ignore` (2). Por defecto son `Stop` y se comen los clics y toques del juego.
@@ -37,7 +37,7 @@ Arcade de tenis en vista vertical, rápido y difícil, con rivales únicos tipo 
 
 ## Principios de código
 - Lógica separada de lo visual. Posición, física de la bola, ventanas de golpe, cooldowns y marcador en un lado; sprites y efectos en otro. La lógica emite eventos (golpe perfecto, parry, punto, knockup) y los efectos y el HUD se suscriben.
-- El input son órdenes ("golpear", "dash") que ejecuta la lógica. Input solo por acciones del Input Map, nunca por tecla concreta.
+- El input son órdenes ("golpear", "dash") que ejecuta la lógica. Input solo por acciones del Input Map, nunca por tecla concreta. **El mando es la referencia de diseño** (el teclado también funciona): ningún flujo, menús incluidos, puede requerir ratón, y no se diseña nada táctil.
 - Los valores de feel (ventanas de golpe, duraciones, cooldowns, multiplicadores, potencias, hitstop) como `@export` o en un Resource, para que el humano los ajuste en el inspector sin pedirte nada.
 - Contenido por datos con ID, para añadir cosas sin tocar código. Los rivales son Resources con etapas y quirks reutilizables.
 - La IA sigue las reglas de justicia del GDD (§9): sin leer el input, mismas reglas y cooldowns que el jugador, todo truco con aviso.

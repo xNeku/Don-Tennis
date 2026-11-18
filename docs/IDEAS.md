@@ -6,6 +6,8 @@ Las ideas nuevas van aquí, no al código. El diseño (`GDD.md`) está congelado
 - Público y gradas en escenarios posteriores (se probó una versión con público en filas de cabezas, gradas laterales y pancarta; se descartó para el primer escenario por ser demasiado ruido).
 - Segundo torneo y más rivales (reutilizando quirks).
 - Rivales desbloqueables como jugables en versus local (y online con Steam Remote Play Together).
+- Versus local con 2 mandos (mismo juego, 2 jugadores), y online con Steam Remote Play Together.
+- Opciones de pantalla: ventana ×2/×3/×4, pantalla completa, vsync. Compatibilidad con Steam Deck y Steam Input.
 - Modo "Pesadilla": el rival empieza directamente en su última etapa.
 - Replay automático del último punto (grabar posiciones y reproducir).
 - Sala de entrenamiento con máquina de bolas (muy recomendada antes de lanzar).
