@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/mundo/pista_25d.gd" id="1_pista"]
 [ext_resource type="Texture2D" path="res://art/placeholder/trama_red.png" id="2_red"]
-[ext_resource type="Texture2D" path="res://art/placeholder/trama_gradas.png" id="3_gradas"]
-[ext_resource type="Texture2D" path="res://art/placeholder/trama_cancha.png" id="4_cancha"]
-[ext_resource type="Texture2D" path="res://art/placeholder/trama_suelo.png" id="5_suelo"]
+[ext_resource type="Texture2D" path="res://art/placeholder/trama_cancha.png" id="3_cancha"]
+[ext_resource type="Texture2D" path="res://art/placeholder/trama_suelo.png" id="4_suelo"]
 
 [node name="Pista" type="Node2D"]
 script = ExtResource("1_pista")
@@ -18,51 +17,13 @@ posicion_red = 0.5
 polygon = PackedVector2Array(0, 0, 480, 0, 480, 270, 0, 270)
 color = Color(0.114, 0.106, 0.227, 1.0)
 
-[node name="Gradas" type="Node2D" parent="."]
-
-[node name="GradaFondo" type="Polygon2D" parent="Gradas"]
-polygon = PackedVector2Array(10, 30, 470, 30, 470, -30, 10, -30)
-color = Color(0.18, 0.22, 0.4, 1.0)
-
-[node name="Pancarta" type="Polygon2D" parent="Gradas"]
-polygon = PackedVector2Array(174, 6, 306, 6, 306, -14, 174, -14)
-color = Color(0.78, 0.3, 0.3, 1.0)
-
-[node name="GradaIzqFrente" type="Polygon2D" parent="Gradas"]
-polygon = PackedVector2Array(126, 30, 32, 264, 32, 205, 126, -2)
-color = Color(0.1, 0.1, 0.22, 1.0)
-
-[node name="GradaIzqAsientos" type="Polygon2D" parent="Gradas"]
-polygon = PackedVector2Array(126, -2, 32, 205, -160, 163, 21, -25)
-color = Color(0.17, 0.18, 0.34, 1.0)
-
-[node name="PublicoIzq" type="Polygon2D" parent="Gradas"]
-texture_repeat = 2
-texture = ExtResource("3_gradas")
-polygon = PackedVector2Array(126, -2, 32, 205, -160, 163, 21, -25)
-uv = PackedVector2Array(126, -2, 32, 205, -160, 163, 21, -25)
-
-[node name="GradaDerFrente" type="Polygon2D" parent="Gradas"]
-polygon = PackedVector2Array(354, 30, 448, 264, 448, 205, 354, -2)
-color = Color(0.1, 0.1, 0.22, 1.0)
-
-[node name="GradaDerAsientos" type="Polygon2D" parent="Gradas"]
-polygon = PackedVector2Array(354, -2, 448, 205, 640, 163, 459, -25)
-color = Color(0.17, 0.18, 0.34, 1.0)
-
-[node name="PublicoDer" type="Polygon2D" parent="Gradas"]
-texture_repeat = 2
-texture = ExtResource("3_gradas")
-polygon = PackedVector2Array(354, -2, 448, 205, 640, 163, 459, -25)
-uv = PackedVector2Array(354, -2, 448, 205, 640, 163, 459, -25)
-
 [node name="Suelo" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(126, 30, 354, 30, 455, 281, 25, 281)
 color = Color(0.18, 0.4, 0.35, 1.0)
 
 [node name="SueloTrama" type="Polygon2D" parent="."]
-texture_repeat = 2
-texture = ExtResource("5_suelo")
+texture_repeat = 1
+texture = ExtResource("4_suelo")
 polygon = PackedVector2Array(126, 30, 354, 30, 455, 281, 25, 281)
 uv = PackedVector2Array(126, 30, 354, 30, 455, 281, 25, 281)
 
@@ -71,8 +32,8 @@ polygon = PackedVector2Array(139, 37, 341, 37, 409, 232, 71, 232)
 color = Color(0.231, 0.5, 0.4, 1.0)
 
 [node name="CanchaTrama" type="Polygon2D" parent="."]
-texture_repeat = 2
-texture = ExtResource("4_cancha")
+texture_repeat = 1
+texture = ExtResource("3_cancha")
 polygon = PackedVector2Array(139, 37, 341, 37, 409, 232, 71, 232)
 uv = PackedVector2Array(139, 37, 341, 37, 409, 232, 71, 232)
 
@@ -120,7 +81,7 @@ polygon = PackedVector2Array(114, 110, 366, 110, 368, 115, 112, 115)
 color = Color(0, 0, 0, 0.3)
 
 [node name="Malla" type="Polygon2D" parent="Red"]
-texture_repeat = 2
+texture_repeat = 1
 texture = ExtResource("2_red")
 polygon = PackedVector2Array(114, 110, 366, 110, 366, 96, 114, 96)
 uv = PackedVector2Array(114, 110, 366, 110, 366, 96, 114, 96)

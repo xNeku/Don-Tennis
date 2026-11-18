@@ -38,13 +38,15 @@ Pilares de diseño:
 ## 3. Cámara, pista y presentación
 
 - [DECIDIDO] Vista vertical: rival arriba, jugador abajo. Referencia de flow: Mario Tennis, Wii Sports Tennis.
-- [DECIDIDO] Público a los lados y detrás del rival (según la pista). Árbitro en la red que hace de comentarista, siempre el mismo y con carisma.
+- [DECIDIDO] Árbitro en la red que hace de comentarista, siempre el mismo y con carisma (se diseña más adelante).
+- [DECIDIDO] **El primer escenario es minimalista y tranquilo, sin público ni gradas.** Ahora el foco es el diseño del campo, las animaciones y los jugadores.
+- [ABIERTO] Público y gradas para escenarios posteriores (aparcado, ver `IDEAS.md`).
 - [DECIDIDO] Se quiere un juego 2D pero **no plano**: con otro ángulo (2.5D), y una **zona jugable más grande**.
 - [DECIDIDO] **Cámara 2.5D en perspectiva** (opción B). Se descarta la vista plana. La perspectiva sale de 4 marcadores en pantalla (`Pista25D`), pensados para alinearlos con una pista dibujada a mano. La lógica trabaja en coordenadas lógicas y la pista proyecta (`proyectar`/`desproyectar`), así que el ángulo se cambia sin tocar la física.
 - [PROPUESTA] Cámara fija, sin zoom dinámico salvo efectos puntuales (especial, punto decisivo).
-- [PROPUESTA] La pista, las gradas y el árbitro van como **escenas `.tscn` editables** (piezas sueltas: Polygon2D / Sprite2D), para que tú las muevas y dibujes sin tocar código.
+- [PROPUESTA] La pista y el árbitro van como **escenas `.tscn` editables** (piezas sueltas: Polygon2D / Sprite2D), para que tú las muevas y dibujes sin tocar código.
 - [DECIDIDO] Diseño visual **simple pero con mucha personalidad**. Pesan más la personalidad y el game feel que el detalle.
-- [DECIDIDO] **Pixel art en todo el juego** (personajes, pista, red, público, efectos), no solo en los personajes. Referencias del humano: sprites con cabeza grande y pelo con carácter, contorno casi negro y sombra elíptica tramada (dithering); y un tenis con animaciones donde el golpe deja un arco oscuro en media luna, la red es una malla gris tramada y el público es una tira de cabezas.
+- [DECIDIDO] **Pixel art en todo el juego** (personajes, pista, red, efectos), no solo en los personajes. Referencias del humano: sprites con cabeza grande y pelo con carácter, contorno casi negro y sombra elíptica tramada (dithering); y un tenis con animaciones donde el golpe deja un arco oscuro en media luna, la red es una malla gris tramada y el público es una tira de cabezas.
 - [DECIDIDO] Pixel art de **sprites de tamaño fijo, sin escalar con la perspectiva**. El jugador (siempre en la mitad cercana) se dibuja a su tamaño (~36 px a 480×270) y el rival (mitad lejana) más pequeño (~28 px). La bola tiene 3 tamaños (5, 7 y 9 px) y la lógica elige según la profundidad. La perspectiva la da la pista y la diferencia de tamaño entre personajes. Escalar pixel art con la perspectiva deforma los píxeles.
 - [PROPUESTA] A tan poco tamaño las proporciones de **cabeza grande** se leen mucho mejor y dan personalidad. Los PNG de `art/placeholder/` son provisionales (programmer art generado por código) y se sustituyen por los dibujados a mano cambiando la ruta del sprite, sin tocar código.
 - [DECIDIDO] Resolución base **480×270**, modo `viewport` con escalado entero (×3 = 810p, ×4 = 1080p, ×8 = 4K), filtro `nearest` y posiciones a píxel entero. La bola mide 5-9 px y se lee bien en un juego rápido. Sin escalado no entero.

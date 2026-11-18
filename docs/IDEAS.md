@@ -3,6 +3,7 @@
 Las ideas nuevas van aquí, no al código. El diseño (`GDD.md`) está congelado hasta que el tramo actual sea jugable.
 
 ## Para después de la prueba
+- Público y gradas en escenarios posteriores (se probó una versión con público en filas de cabezas, gradas laterales y pancarta; se descartó para el primer escenario por ser demasiado ruido).
 - Segundo torneo y más rivales (reutilizando quirks).
 - Rivales desbloqueables como jugables en versus local (y online con Steam Remote Play Together).
 - Modo "Pesadilla": el rival empieza directamente en su última etapa.
