@@ -10,6 +10,7 @@
 
 [node name="Fase0" type="Node2D"]
 script = ExtResource("1_fase0")
+resolucion_base = Vector2i(480, 270)
 tipos = Array[ExtResource("4_tipo")]([ExtResource("5_normal"), ExtResource("6_fuerte"), ExtResource("7_globo")])
 
 [node name="Pista" parent="." instance=ExtResource("2_pista")]

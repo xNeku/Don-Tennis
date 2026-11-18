@@ -10,9 +10,11 @@ script = ExtResource("1_bola")
 params = ExtResource("3_params")
 
 [node name="Visual" type="Node2D" parent="."]
+top_level = true
 script = ExtResource("2_visual")
 
 [node name="Marcador" type="Node2D" parent="Visual"]
+top_level = true
 
 [node name="Relleno" type="Polygon2D" parent="Visual/Marcador"]
 color = Color(1, 1, 1, 0.3)

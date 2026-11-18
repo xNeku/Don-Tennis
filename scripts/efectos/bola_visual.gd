@@ -1,10 +1,9 @@
 class_name BolaVisual
 extends Node2D
 ## Parte visual de la bola: cuerpo (con altura), sombra y marcador de caída.
-## Solo lee el estado de Bola; no decide nada de la física.
+## Solo lee el estado de Bola y pide a la Pista que proyecte; no decide nada de la física.
+## Visual y Marcador son `top_level`: su posición en pantalla la pone la proyección.
 
-## Cuántos píxeles de pantalla sube la bola por cada unidad de altura z.
-@export var escala_altura: float = 0.6
 ## Segundos tras el golpe antes de que aparezca el marcador (hay que leer algo).
 @export var retraso_marcador: float = 0.12
 ## Altura a la que la sombra alcanza su tamaño mínimo.
@@ -22,12 +21,29 @@ var _marcador_visible_previo: bool = false
 
 func _ready() -> void:
 	_marcador.visible = false
+	_bola.lanzada.connect(_on_lanzada)
+
+
+func _on_lanzada(_origen: Vector2) -> void:
+	_marcador_visible_previo = false
+	_actualizar()
+	reset_physics_interpolation()
 
 
 # Se actualiza en _physics_process (después de la lógica, que es el padre) para que la
 # interpolación de físicas suavice también la altura y el marcador.
 func _physics_process(_delta: float) -> void:
-	_cuerpo.position = Vector2(0.0, -_bola.z * escala_altura)
+	_actualizar()
+
+
+func _actualizar() -> void:
+	var pista: Pista = _bola.pista
+	if pista == null:
+		return
+
+	global_position = pista.proyectar(_bola.position)
+	scale = Vector2.ONE * pista.escala_en(_bola.position)
+	_cuerpo.position = Vector2(0.0, -_bola.z * pista.factor_altura)
 
 	var proporcion: float = clampf(_bola.z / altura_sombra_max, 0.0, 1.0)
 	_sombra.scale = Vector2.ONE * lerpf(1.0, 0.7, proporcion)
@@ -38,11 +54,11 @@ func _physics_process(_delta: float) -> void:
 	_marcador.visible = mostrar
 	if mostrar:
 		var punto: Vector2 = _bola.punto_aterrizaje()
-		_marcador.global_position = punto
+		_marcador.global_position = pista.proyectar(punto)
 		if not _marcador_visible_previo:
 			_marcador.reset_physics_interpolation()
-		var dentro: bool = _bola.pista == null or _bola.pista.contiene(punto)
+		var dentro: bool = pista.contiene(punto)
 		_marcador.modulate = color_marcador_dentro if dentro else color_marcador_fuera
 		var pulso: float = 1.0 + 0.1 * sin(_bola.tiempo_vuelo * 22.0)
-		_marcador.scale = Vector2.ONE * pulso
+		_marcador.scale = Vector2.ONE * pista.escala_en(punto) * pulso
 	_marcador_visible_previo = mostrar

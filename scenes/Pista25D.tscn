@@ -1,0 +1,155 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/mundo/pista_25d.gd" id="1_pista"]
+
+[node name="Pista" type="Node2D"]
+script = ExtResource("1_pista")
+alto_red = 14.0
+factor_altura = 0.73
+ancho_logico = 180.0
+largo_logico = 220.0
+posicion_red = 0.5
+
+[node name="Fondo" type="Polygon2D" parent="."]
+color = Color(0.106, 0.122, 0.231, 1.0)
+polygon = PackedVector2Array(0.0, 0.0, 640.0, 0.0, 640.0, 360.0, 0.0, 360.0)
+
+[node name="Gradas" type="Node2D" parent="."]
+
+[node name="GradaFondo" type="Polygon2D" parent="Gradas"]
+color = Color(0.208, 0.22, 0.408, 1.0)
+polygon = PackedVector2Array(12.8, 40.3, 627.2, 40.3, 627.2, -39.8, 12.8, -39.8)
+
+[node name="Pancarta" type="Polygon2D" parent="Gradas"]
+color = Color(0.78, 0.3, 0.3, 1.0)
+polygon = PackedVector2Array(232.3, 8.0, 407.7, 8.0, 407.7, -18.7, 232.3, -18.7)
+
+[node name="GradaIzqFrente" type="Polygon2D" parent="Gradas"]
+color = Color(0.14, 0.15, 0.3, 1.0)
+polygon = PackedVector2Array(167.9, 40.3, 43.2, 351.9, 43.2, 274.2, 167.9, -2.4)
+
+[node name="GradaIzqAsientos" type="Polygon2D" parent="Gradas"]
+color = Color(0.169, 0.18, 0.341, 1.0)
+polygon = PackedVector2Array(167.9, -2.4, 43.2, 274.2, -212.3, 218.3, 27.4, -33.1)
+
+[node name="FilaIzq1" type="Line2D" parent="Gradas"]
+points = PackedVector2Array(132.8, -10.1, -20.6, 260.2)
+width = 1.0
+default_color = Color(0.28, 0.3, 0.52, 1.0)
+
+[node name="FilaIzq2" type="Line2D" parent="Gradas"]
+points = PackedVector2Array(97.7, -17.8, -84.5, 246.3)
+width = 1.0
+default_color = Color(0.28, 0.3, 0.52, 1.0)
+
+[node name="FilaIzq3" type="Line2D" parent="Gradas"]
+points = PackedVector2Array(62.6, -25.5, -148.4, 232.3)
+width = 1.0
+default_color = Color(0.28, 0.3, 0.52, 1.0)
+
+[node name="GradaDerFrente" type="Polygon2D" parent="Gradas"]
+color = Color(0.14, 0.15, 0.3, 1.0)
+polygon = PackedVector2Array(472.1, 40.3, 596.8, 351.9, 596.8, 274.2, 472.1, -2.4)
+
+[node name="GradaDerAsientos" type="Polygon2D" parent="Gradas"]
+color = Color(0.169, 0.18, 0.341, 1.0)
+polygon = PackedVector2Array(472.1, -2.4, 596.8, 274.2, 852.3, 218.3, 612.6, -33.1)
+
+[node name="FilaDer1" type="Line2D" parent="Gradas"]
+points = PackedVector2Array(507.2, -10.1, 660.6, 260.2)
+width = 1.0
+default_color = Color(0.28, 0.3, 0.52, 1.0)
+
+[node name="FilaDer2" type="Line2D" parent="Gradas"]
+points = PackedVector2Array(542.3, -17.8, 724.5, 246.3)
+width = 1.0
+default_color = Color(0.28, 0.3, 0.52, 1.0)
+
+[node name="FilaDer3" type="Line2D" parent="Gradas"]
+points = PackedVector2Array(577.4, -25.5, 788.4, 232.3)
+width = 1.0
+default_color = Color(0.28, 0.3, 0.52, 1.0)
+
+[node name="Suelo" type="Polygon2D" parent="."]
+color = Color(0.18, 0.42, 0.353, 1.0)
+polygon = PackedVector2Array(167.9, 40.3, 472.1, 40.3, 606.0, 375.0, 34.0, 375.0)
+
+[node name="Cancha" type="Polygon2D" parent="."]
+color = Color(0.231, 0.541, 0.408, 1.0)
+polygon = PackedVector2Array(185.0, 50.0, 455.0, 50.0, 545.0, 310.0, 95.0, 310.0)
+
+[node name="Lineas" type="Node2D" parent="."]
+
+[node name="LineaBaseRival" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(185.0, 50.0, 455.0, 50.0)
+width = 1.5
+default_color = Color(0.918, 0.949, 0.89, 1.0)
+
+[node name="LineaBaseJugador" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(95.0, 310.0, 545.0, 310.0)
+width = 1.5
+default_color = Color(0.918, 0.949, 0.89, 1.0)
+
+[node name="LineaLateralIzq" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(185.0, 50.0, 95.0, 310.0)
+width = 1.5
+default_color = Color(0.918, 0.949, 0.89, 1.0)
+
+[node name="LineaLateralDer" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(455.0, 50.0, 545.0, 310.0)
+width = 1.5
+default_color = Color(0.918, 0.949, 0.89, 1.0)
+
+[node name="LineaSaqueRival" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(170.3, 92.5, 469.7, 92.5)
+width = 1.5
+default_color = Color(0.918, 0.949, 0.89, 1.0)
+
+[node name="LineaSaqueJugador" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(126.6, 218.6, 513.4, 218.6)
+width = 1.5
+default_color = Color(0.918, 0.949, 0.89, 1.0)
+
+[node name="LineaCentral" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(320.0, 92.5, 320.0, 218.6)
+width = 1.5
+default_color = Color(0.918, 0.949, 0.89, 1.0)
+
+[node name="Red" type="Node2D" parent="."]
+
+[node name="SombraRed" type="Polygon2D" parent="Red"]
+color = Color(0, 0, 0, 0.3)
+polygon = PackedVector2Array(151.2, 147.5, 488.8, 147.5, 491.1, 154.2, 148.9, 154.2)
+
+[node name="Malla" type="Polygon2D" parent="Red"]
+color = Color(0.81, 0.85, 0.9, 0.5)
+polygon = PackedVector2Array(151.2, 147.5, 488.8, 147.5, 488.8, 128.3, 151.2, 128.3)
+
+[node name="Cinta" type="Line2D" parent="Red"]
+points = PackedVector2Array(151.2, 128.3, 488.8, 128.3)
+width = 2.5
+default_color = Color(1, 1, 1, 1.0)
+
+[node name="PosteIzq" type="Line2D" parent="Red"]
+points = PackedVector2Array(145.6, 147.5, 145.6, 122.9)
+width = 3.0
+default_color = Color(0.6, 0.64, 0.72, 1.0)
+
+[node name="PosteDer" type="Line2D" parent="Red"]
+points = PackedVector2Array(494.4, 147.5, 494.4, 122.9)
+width = 3.0
+default_color = Color(0.6, 0.64, 0.72, 1.0)
+
+[node name="Limites" type="Node2D" parent="."]
+
+[node name="EsquinaLejosIzq" type="Marker2D" parent="Limites"]
+position = Vector2(185, 50)
+
+[node name="EsquinaLejosDer" type="Marker2D" parent="Limites"]
+position = Vector2(455, 50)
+
+[node name="EsquinaCercaIzq" type="Marker2D" parent="Limites"]
+position = Vector2(95, 310)
+
+[node name="EsquinaCercaDer" type="Marker2D" parent="Limites"]
+position = Vector2(545, 310)

@@ -3,6 +3,8 @@ extends Node2D
 ## Clic o toque en la pista = lanza una bola que botará justo ahí.
 ## No es parte del juego final; sirve para sentir la bola, su arco y el marcador de caída.
 
+## Resolución base de esta escena (la vista plana usa 480x270, la 2.5D 640x360).
+@export var resolucion_base: Vector2i = Vector2i(640, 360)
 ## Tipos de golpe disponibles (datos en data/golpes/).
 @export var tipos: Array[TipoGolpe] = []
 ## Segundos entre bolas en modo automático.
@@ -29,6 +31,7 @@ var _toco_red: bool = false
 
 
 func _ready() -> void:
+	get_window().content_scale_size = resolucion_base
 	_bola.pista = _pista
 	_bola.rebote.connect(_on_rebote)
 	_bola.golpeo_red.connect(func() -> void:
@@ -42,7 +45,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"pruebas_lanzar"):
-		lanzar_a(get_global_mouse_position())
+		lanzar_a(_pista.desproyectar(get_global_mouse_position()))
 	elif event.is_action_pressed(&"pruebas_tipo_normal"):
 		_elegir(0)
 	elif event.is_action_pressed(&"pruebas_tipo_fuerte"):
@@ -71,7 +74,7 @@ func lanzar_a(destino: Vector2) -> void:
 	var objetivo: Vector2 = Vector2(
 		clampf(destino.x, r.position.x, r.end.x),
 		clampf(destino.y, _pista.y_red() + 10.0, r.end.y))
-	_bola.lanzar_hacia(_origen.global_position, tipo.altura_inicial, objetivo, tipo.tiempo_vuelo, tipo.potencia)
+	_bola.lanzar_hacia(_pista.desproyectar(_origen.global_position), tipo.altura_inicial, objetivo, tipo.tiempo_vuelo, tipo.potencia)
 	_prediccion = _bola.punto_aterrizaje()
 	_error_prediccion = -1.0
 	_toco_red = false
@@ -103,7 +106,8 @@ func _poner_huella(punto: Vector2, dentro: bool) -> void:
 	huella.polygon = PackedVector2Array([
 		Vector2(2, 0), Vector2(0, 1.2), Vector2(-2, 0), Vector2(0, -1.2)])
 	huella.color = Color(1, 1, 1, 0.8) if dentro else Color(0.55, 0.57, 0.65, 0.8)
-	huella.position = punto
+	huella.position = _pista.proyectar(punto)
+	huella.scale = Vector2.ONE * _pista.escala_en(punto)
 	_huellas.add_child(huella)
 	var tween: Tween = create_tween()
 	tween.tween_property(huella, "modulate:a", 0.0, 1.5)

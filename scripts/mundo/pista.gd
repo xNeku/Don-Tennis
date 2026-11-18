@@ -1,27 +1,40 @@
 class_name Pista
 extends Node2D
-## Geometría lógica de la pista. La verdad está en los Marker2D de `Limites`:
-## muévelos en el editor y la lógica los sigue. Las líneas y el decorado son solo visuales.
+## Base de las pistas. Define lo común (límites, red) y cómo se proyecta el mundo lógico
+## (x, y en el suelo + z de altura) a la pantalla. La lógica (Bola, IA) solo habla en
+## coordenadas lógicas y pide a la pista que proyecte; así se puede cambiar el ángulo
+## de cámara sin tocar la física. Por defecto la proyección es plana (identidad).
 
 ## Altura de la cinta de la red (en unidades z). Una bola por debajo choca con la red.
 @export var alto_red: float = 14.0
-
-@onready var _esquina_sup_izq: Marker2D = $Limites/EsquinaSupIzq
-@onready var _esquina_inf_der: Marker2D = $Limites/EsquinaInfDer
-@onready var _marca_red: Marker2D = $Limites/MarcaRed
+## Cuánto sube la bola en pantalla por cada unidad de altura z (en la escala local de la bola).
+@export var factor_altura: float = 0.6
 
 
-## Rectángulo de juego (dentro de las líneas), en coordenadas globales.
+## Rectángulo de juego (dentro de las líneas), en coordenadas lógicas.
 func rect_juego() -> Rect2:
-	var a: Vector2 = _esquina_sup_izq.global_position
-	var b: Vector2 = _esquina_inf_der.global_position
-	return Rect2(a, b - a)
+	return Rect2()
 
 
-## Coordenada Y de la red.
+## Coordenada Y lógica de la red.
 func y_red() -> float:
-	return _marca_red.global_position.y
+	return 0.0
 
 
 func contiene(punto: Vector2) -> bool:
 	return rect_juego().has_point(punto)
+
+
+## Del mundo lógico (suelo + altura z) a coordenadas globales de pantalla.
+func proyectar(suelo: Vector2, z: float = 0.0) -> Vector2:
+	return suelo + Vector2(0.0, -z * factor_altura)
+
+
+## Escala visual en ese punto del suelo (1.0 = tamaño base; cerca de la cámara > lejos).
+func escala_en(_suelo: Vector2) -> float:
+	return 1.0
+
+
+## De un punto de pantalla al suelo lógico (z = 0). Inversa de `proyectar`.
+func desproyectar(pantalla: Vector2) -> Vector2:
+	return pantalla

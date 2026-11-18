@@ -39,11 +39,14 @@ Pilares de diseño:
 
 - [DECIDIDO] Vista vertical: rival arriba, jugador abajo. Referencia de flow: Mario Tennis, Wii Sports Tennis.
 - [DECIDIDO] Público a los lados y detrás del rival (según la pista). Árbitro en la red que hace de comentarista, siempre el mismo y con carisma.
-- [PROPUESTA] Cámara fija, ligeramente inclinada (pista como trapecio suave). Nada de zoom dinámico salvo efectos puntuales (especial, punto decisivo).
+- [DECIDIDO] Se quiere un juego 2D pero **no plano**: con otro ángulo (2.5D), y una **zona jugable más grande**.
+- [ABIERTO] **Cámara: plana (A) o 2.5D en perspectiva (B).** Ambas están implementadas para compararlas (ramas `fase-0-bola` y `fase-0-bola-25d`). La lógica es la misma: solo cambia cómo se proyecta a pantalla (`Pista.proyectar`). Con B, el rival (lejos) se ve pequeño y estrecho y el jugador (cerca) grande. La perspectiva sale de 4 marcadores en pantalla, para alinearlos con una pista dibujada a mano.
+- [PROPUESTA] Cámara fija, sin zoom dinámico salvo efectos puntuales (especial, punto decisivo).
 - [PROPUESTA] La pista, las gradas y el árbitro van como **escenas `.tscn` editables** (piezas sueltas: Polygon2D / Sprite2D), para que tú las muevas y dibujes sin tocar código.
-- [DECIDIDO] Estilo gráfico: tipo Game Boy modernizado.
-- [PROPUESTA] Resolución interna **480×270** (×4 = 1080p, ×8 = 4K, escalado entero). Justificación: a 320×180 la bola queda en 3-4 px y es ilegible en un juego rápido. Con 480×270 la bola mide ~6 px y los personajes ~40 px.
-- [ABIERTO] Resolución definitiva, depende de cuánto arte quieras dibujar.
+- [ABIERTO] Estilo gráfico. Se dijo "tipo Game Boy modernizado", pero **no es eso**: no se busca pixel art de 4 tonos. Pendiente de definir (2D dibujado a mano con ángulo 2.5D).
+- [PROPUESTA] Resolución base **640×360** con escalado suave (`canvas_items`), no entero: ya no se busca pixel art estricto. Es el punto medio entre detalle y trabajo de dibujo (personajes de ~55-65 px). 960×540 da más detalle, pero cada sprite cuesta mucho más de dibujar.
+- [PROPUESTA] En 2.5D los sprites se **escalan con la profundidad** (más pequeños lejos). Con arte dibujado en alta resolución se ve bien. Con pixel art estricto el escalado no entero queda mal: habría que dibujar tamaños fijos o quitar la perspectiva.
+- [ABIERTO] Resolución definitiva, depende de cuánto arte quieras dibujar y del estilo final.
 
 ### Información de la bola
 
@@ -197,10 +200,10 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 
 ## 12. Estilo visual y game feel
 
-- [DECIDIDO] Gráficos tipo Game Boy modernizados. Todo el arte lo dibuja el humano. Mientras tanto, programmer art con formas.
+- [DECIDIDO] Todo el arte lo dibuja el humano. Mientras tanto, programmer art con formas. (El estilo Game Boy se descartó, ver §3.)
 - [DECIDIDO] Se debe notar mucho cuando se da fuerte, se coge una bola difícil, o lo hace el enemigo.
 - [DECIDIDO] Graduación de rojos según la potencia de la bola, barras con buen aspecto, game feel potente (sacudidas, colores, efectos de movimiento, polvo, buenas animaciones).
-- [PROPUESTA] Paleta base reducida por pista (5-6 colores) y una **rampa de rojos de 5 pasos** reservada para la potencia. La bola siempre con máximo contraste y borde de 1 px.
+- [PROPUESTA] Paleta base por pista (no estrictamente reducida) y una **rampa de rojos de 5 pasos** reservada para la potencia. La bola siempre con máximo contraste y borde.
 - [PROPUESTA] Niveles de potencia: normal, fuerte, muy fuerte, brutal, especial. La rampa es un Resource editable.
 - [PROPUESTA] Catálogo de feedback: hitstop (60-90 ms perfecto, ~120 ms especial), sacudida proporcional a la potencia, destello, estela de la bola, polvo al rodar y al frenar, squash & stretch, texto flotante ("PERFECTO", "PARRY", "KNOCKUP"), tinte de pantalla en la zona, cambio de música.
 - [PROPUESTA] Retrato de reacción del rival a cada punto (una viñeta grande, arte barato con mucha personalidad).
@@ -257,5 +260,5 @@ Una rama por fase, un commit por tarea. No se avanza hasta que la fase sea diver
 5. 10–10: punto de oro o ganar por 2.
 6. Derrota: reintento infinito o vidas.
 7. Marcador de caída: siempre o desactivable.
-8. Resolución interna (480×270 recomendada).
+8. Cámara plana (A) o 2.5D (B), estilo gráfico definitivo y resolución (640×360 propuesta).
 9. Título del juego.
