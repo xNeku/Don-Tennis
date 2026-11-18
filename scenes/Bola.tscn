@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/mundo/bola.gd" id="1_bola"]
+[ext_resource type="Script" path="res://scripts/efectos/bola_visual.gd" id="2_visual"]
+[ext_resource type="Resource" path="res://data/bola/bola_base.tres" id="3_params"]
+
+[node name="Bola" type="Node2D"]
+visible = false
+script = ExtResource("1_bola")
+params = ExtResource("3_params")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("2_visual")
+
+[node name="Marcador" type="Node2D" parent="Visual"]
+
+[node name="Relleno" type="Polygon2D" parent="Visual/Marcador"]
+color = Color(1, 1, 1, 0.3)
+polygon = PackedVector2Array(8, 0, 6.93, 2.5, 4, 4.33, 0, 5, -4, 4.33, -6.93, 2.5, -8, 0, -6.93, -2.5, -4, -4.33, 0, -5, 4, -4.33, 6.93, -2.5)
+
+[node name="Borde" type="Line2D" parent="Visual/Marcador"]
+points = PackedVector2Array(8, 0, 6.93, 2.5, 4, 4.33, 0, 5, -4, 4.33, -6.93, 2.5, -8, 0, -6.93, -2.5, -4, -4.33, 0, -5, 4, -4.33, 6.93, -2.5)
+closed = true
+width = 1.0
+default_color = Color(1, 1, 1, 1)
+
+[node name="Sombra" type="Polygon2D" parent="Visual"]
+color = Color(0, 0, 0, 0.5)
+polygon = PackedVector2Array(5, 0, 3.54, 1.77, 0, 2.5, -3.54, 1.77, -5, 0, -3.54, -1.77, 0, -2.5, 3.54, -1.77)
+
+[node name="Cuerpo" type="Node2D" parent="Visual"]
+
+[node name="Contorno" type="Polygon2D" parent="Visual/Cuerpo"]
+color = Color(0.1, 0.1, 0.18, 1)
+polygon = PackedVector2Array(4, 0, 2.83, 2.83, 0, 4, -2.83, 2.83, -4, 0, -2.83, -2.83, 0, -4, 2.83, -2.83)
+
+[node name="Relleno" type="Polygon2D" parent="Visual/Cuerpo"]
+color = Color(0.957, 0.945, 0.871, 1)
+polygon = PackedVector2Array(3, 0, 2.12, 2.12, 0, 3, -2.12, 2.12, -3, 0, -2.12, -2.12, 0, -3, 2.12, -2.12)

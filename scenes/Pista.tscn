@@ -1,0 +1,103 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/mundo/pista.gd" id="1_pista"]
+
+[node name="Pista" type="Node2D"]
+script = ExtResource("1_pista")
+alto_red = 14.0
+
+[node name="Fondo" type="Polygon2D" parent="."]
+color = Color(0.106, 0.122, 0.231, 1)
+polygon = PackedVector2Array(0, 0, 480, 0, 480, 270, 0, 270)
+
+[node name="Gradas" type="Node2D" parent="."]
+
+[node name="GradaIzq" type="Polygon2D" parent="Gradas"]
+color = Color(0.169, 0.18, 0.341, 1)
+polygon = PackedVector2Array(0, 0, 132, 0, 132, 270, 0, 270)
+
+[node name="GradaDer" type="Polygon2D" parent="Gradas"]
+color = Color(0.169, 0.18, 0.341, 1)
+polygon = PackedVector2Array(348, 0, 480, 0, 480, 270, 348, 270)
+
+[node name="GradaFondo" type="Polygon2D" parent="Gradas"]
+color = Color(0.208, 0.22, 0.408, 1)
+polygon = PackedVector2Array(132, 0, 348, 0, 348, 18, 132, 18)
+
+[node name="Suelo" type="Polygon2D" parent="."]
+color = Color(0.18, 0.42, 0.353, 1)
+polygon = PackedVector2Array(132, 18, 348, 18, 348, 258, 132, 258)
+
+[node name="Cancha" type="Polygon2D" parent="."]
+color = Color(0.231, 0.541, 0.408, 1)
+polygon = PackedVector2Array(150, 28, 330, 28, 330, 248, 150, 248)
+
+[node name="Lineas" type="Node2D" parent="."]
+
+[node name="LineaBaseRival" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(150, 28.5, 330, 28.5)
+width = 1.0
+default_color = Color(0.918, 0.949, 0.89, 1)
+
+[node name="LineaBaseJugador" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(150, 247.5, 330, 247.5)
+width = 1.0
+default_color = Color(0.918, 0.949, 0.89, 1)
+
+[node name="LineaLateralIzq" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(150.5, 28, 150.5, 248)
+width = 1.0
+default_color = Color(0.918, 0.949, 0.89, 1)
+
+[node name="LineaLateralDer" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(329.5, 28, 329.5, 248)
+width = 1.0
+default_color = Color(0.918, 0.949, 0.89, 1)
+
+[node name="LineaSaqueRival" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(150, 82.5, 330, 82.5)
+width = 1.0
+default_color = Color(0.918, 0.949, 0.89, 1)
+
+[node name="LineaSaqueJugador" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(150, 193.5, 330, 193.5)
+width = 1.0
+default_color = Color(0.918, 0.949, 0.89, 1)
+
+[node name="LineaCentral" type="Line2D" parent="Lineas"]
+points = PackedVector2Array(240.5, 82, 240.5, 194)
+width = 1.0
+default_color = Color(0.918, 0.949, 0.89, 1)
+
+[node name="Red" type="Node2D" parent="."]
+
+[node name="SombraRed" type="Polygon2D" parent="Red"]
+color = Color(0, 0, 0, 0.3)
+polygon = PackedVector2Array(150, 138, 330, 138, 330, 142, 150, 142)
+
+[node name="Malla" type="Polygon2D" parent="Red"]
+color = Color(0.81, 0.85, 0.9, 0.5)
+polygon = PackedVector2Array(150, 130, 330, 130, 330, 138, 150, 138)
+
+[node name="Cinta" type="Polygon2D" parent="Red"]
+color = Color(1, 1, 1, 1)
+polygon = PackedVector2Array(150, 129, 330, 129, 330, 131, 150, 131)
+
+[node name="PosteIzq" type="Polygon2D" parent="Red"]
+color = Color(0.6, 0.64, 0.72, 1)
+polygon = PackedVector2Array(147, 127, 150, 127, 150, 140, 147, 140)
+
+[node name="PosteDer" type="Polygon2D" parent="Red"]
+color = Color(0.6, 0.64, 0.72, 1)
+polygon = PackedVector2Array(330, 127, 333, 127, 333, 140, 330, 140)
+
+[node name="Limites" type="Node2D" parent="."]
+
+[node name="EsquinaSupIzq" type="Marker2D" parent="Limites"]
+position = Vector2(150, 28)
+
+[node name="EsquinaInfDer" type="Marker2D" parent="Limites"]
+position = Vector2(330, 248)
+
+[node name="MarcaRed" type="Marker2D" parent="Limites"]
+position = Vector2(240, 138)

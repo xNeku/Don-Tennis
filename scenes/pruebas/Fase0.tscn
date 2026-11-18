@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/pruebas/fase0.gd" id="1_fase0"]
+[ext_resource type="PackedScene" path="res://scenes/Pista.tscn" id="2_pista"]
+[ext_resource type="PackedScene" path="res://scenes/Bola.tscn" id="3_bola"]
+[ext_resource type="Script" path="res://scripts/datos/tipo_golpe.gd" id="4_tipo"]
+[ext_resource type="Resource" path="res://data/golpes/normal.tres" id="5_normal"]
+[ext_resource type="Resource" path="res://data/golpes/fuerte.tres" id="6_fuerte"]
+[ext_resource type="Resource" path="res://data/golpes/globo.tres" id="7_globo"]
+
+[node name="Fase0" type="Node2D"]
+script = ExtResource("1_fase0")
+tipos = Array[ExtResource("4_tipo")]([ExtResource("5_normal"), ExtResource("6_fuerte"), ExtResource("7_globo")])
+
+[node name="Pista" parent="." instance=ExtResource("2_pista")]
+
+[node name="Huellas" type="Node2D" parent="."]
+
+[node name="Bola" parent="." instance=ExtResource("3_bola")]
+
+[node name="OrigenMaquina" type="Marker2D" parent="."]
+position = Vector2(240, 28)
+
+[node name="Camara" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Info" type="Label" parent="UI"]
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 130.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
+text = "Info"
+
+[node name="Botones" type="VBoxContainer" parent="UI"]
+offset_left = 6.0
+offset_top = 168.0
+offset_right = 90.0
+offset_bottom = 262.0
+theme_override_constants/separation = 2
+
+[node name="Normal" type="Button" parent="UI/Botones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+text = "1 Normal"
+
+[node name="Fuerte" type="Button" parent="UI/Botones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+text = "2 Fuerte"
+
+[node name="Globo" type="Button" parent="UI/Botones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+text = "3 Globo"
+
+[node name="Auto" type="CheckButton" parent="UI/Botones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+text = "T Auto"

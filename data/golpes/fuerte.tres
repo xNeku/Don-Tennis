@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TipoGolpe" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/tipo_golpe.gd" id="1_tipo"]
+
+[resource]
+script = ExtResource("1_tipo")
+id = &"fuerte"
+nombre = "Fuerte"
+tiempo_vuelo = 0.55
+altura_inicial = 18.0
+potencia = 0.8

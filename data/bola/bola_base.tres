@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ParametrosBola" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/parametros_bola.gd" id="1_params"]
+
+[resource]
+script = ExtResource("1_params")
+gravedad = 700.0
+restitucion = 0.72
+friccion_rebote = 0.88
+radio = 3.0
+velocidad_minima_rebote = 30.0
+friccion_rodar = 3.0
+velocidad_parada = 6.0
+tiempo_maximo = 8.0
+factor_red = 0.15
