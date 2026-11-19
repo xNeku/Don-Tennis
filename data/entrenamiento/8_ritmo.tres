@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ModoMaquina" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/modo_maquina.gd" id="1_modo"]
+[ext_resource type="Resource" path="res://data/golpes/normal.tres" id="2_tipo"]
+
+[resource]
+script = ExtResource("1_modo")
+nombre = "Ritmo creciente"
+tipo = ExtResource("2_tipo")
+destino = 0
+factor_tiempo = 1.0
+potencia = -1.0
+usa_ritmo = true
+pausa = 1.0

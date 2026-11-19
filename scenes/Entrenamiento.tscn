@@ -1,0 +1,157 @@
+[gd_scene load_steps=30 format=3]
+
+[ext_resource type="Script" path="res://scripts/mundo/entrenamiento.gd" id="1_ent"]
+[ext_resource type="PackedScene" path="res://scenes/Pista25D.tscn" id="2_pista"]
+[ext_resource type="PackedScene" path="res://scenes/Personaje.tscn" id="3_per"]
+[ext_resource type="PackedScene" path="res://scenes/Bola.tscn" id="4_bola"]
+[ext_resource type="Script" path="res://scripts/efectos/efectos_golpe.gd" id="5_efe"]
+[ext_resource type="Script" path="res://scripts/efectos/camara_feel.gd" id="6_cam"]
+[ext_resource type="Script" path="res://scripts/jugador/entrada_humana.gd" id="7_ent"]
+[ext_resource type="Resource" path="res://data/personajes/jugador_params.tres" id="9_pj"]
+[ext_resource type="Resource" path="res://data/personajes/jugador_hoja.tres" id="11_hj"]
+[ext_resource type="Texture2D" path="res://art/placeholder/sombra_personaje_jugador.png" id="13_sj"]
+[ext_resource type="Resource" path="res://data/feel/rampa_potencia.tres" id="17_rampa"]
+[ext_resource type="Texture2D" path="res://art/placeholder/destello_15.png" id="18_d15"]
+[ext_resource type="Texture2D" path="res://art/placeholder/destello_11.png" id="19_d11"]
+[ext_resource type="Texture2D" path="res://art/placeholder/destello_7.png" id="20_d7"]
+[ext_resource type="Texture2D" path="res://art/placeholder/polvo.png" id="21_polvo"]
+[ext_resource type="Texture2D" path="res://art/placeholder/racha_h.png" id="22_rh"]
+[ext_resource type="Texture2D" path="res://art/placeholder/racha_v.png" id="23_rv"]
+[ext_resource type="Script" path="res://scripts/efectos/sonidos_partido.gd" id="24_son"]
+[ext_resource type="Resource" path="res://data/audio/banco_sonidos.tres" id="25_banco"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/ambiente.wav" id="26_amb"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MenuPausa.tscn" id="27_pausa"]
+[ext_resource type="Script" path="res://scripts/mundo/maquina_bolas.gd" id="28_maq"]
+[ext_resource type="Texture2D" path="res://art/placeholder/maquina.png" id="29_spr"]
+[ext_resource type="Resource" path="res://data/entrenamiento/1_suave.tres" id="m0"]
+[ext_resource type="Resource" path="res://data/entrenamiento/2_normal.tres" id="m1"]
+[ext_resource type="Resource" path="res://data/entrenamiento/3_rapido.tres" id="m2"]
+[ext_resource type="Resource" path="res://data/entrenamiento/4_parry.tres" id="m3"]
+[ext_resource type="Resource" path="res://data/entrenamiento/5_esquinas.tres" id="m4"]
+[ext_resource type="Resource" path="res://data/entrenamiento/6_dejadas.tres" id="m5"]
+[ext_resource type="Resource" path="res://data/entrenamiento/7_globos.tres" id="m6"]
+[ext_resource type="Resource" path="res://data/entrenamiento/8_ritmo.tres" id="m7"]
+
+[node name="Entrenamiento" type="Node2D"]
+script = ExtResource("1_ent")
+
+[node name="Pista" parent="." instance=ExtResource("2_pista")]
+
+[node name="Maquina" type="Node2D" parent="."]
+script = ExtResource("28_maq")
+modos = Array[ExtResource("m0")]([ExtResource("m0"), ExtResource("m1"), ExtResource("m2"), ExtResource("m3"), ExtResource("m4"), ExtResource("m5"), ExtResource("m6"), ExtResource("m7")])
+
+[node name="Sprite" type="Sprite2D" parent="Maquina"]
+texture = ExtResource("29_spr")
+offset = Vector2(0, -8)
+
+[node name="Jugador" parent="." instance=ExtResource("3_per")]
+position = Vector2(90, 200)
+params = ExtResource("9_pj")
+lado = 1
+hoja = ExtResource("11_hj")
+sombra = ExtResource("13_sj")
+
+[node name="EntradaHumana" type="Node" parent="Jugador"]
+script = ExtResource("7_ent")
+
+[node name="Bola" parent="." instance=ExtResource("4_bola")]
+
+[node name="Efectos" type="Node2D" parent="."]
+script = ExtResource("5_efe")
+rampa = ExtResource("17_rampa")
+destellos = Array[Texture2D]([ExtResource("18_d15"), ExtResource("19_d11"), ExtResource("20_d7")])
+textura_polvo = ExtResource("21_polvo")
+rachas = Array[Texture2D]([ExtResource("22_rh"), ExtResource("23_rv")])
+
+[node name="Sonidos" type="Node" parent="."]
+script = ExtResource("24_son")
+banco = ExtResource("25_banco")
+
+[node name="Ambiente" type="AudioStreamPlayer" parent="Sonidos"]
+stream = ExtResource("26_amb")
+bus = &"Ambiente"
+
+[node name="Camara" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+script = ExtResource("6_cam")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Modo" type="Label" parent="UI"]
+offset_left = 4
+offset_top = 3
+offset_right = 330
+offset_bottom = 15
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "MÁQUINA"
+
+[node name="Racha" type="Label" parent="UI"]
+offset_left = 4
+offset_top = 14
+offset_right = 200
+offset_bottom = 26
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 1, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "RACHA 0"
+
+[node name="RitmoFondo" type="ColorRect" parent="UI"]
+offset_left = 4.0
+offset_top = 27.0
+offset_right = 64.0
+offset_bottom = 33.0
+mouse_filter = 2
+color = Color(0.04, 0.04, 0.1, 0.85)
+
+[node name="RitmoBarra" type="ColorRect" parent="UI"]
+offset_left = 5.0
+offset_top = 28.0
+offset_right = 5.0
+offset_bottom = 32.0
+mouse_filter = 2
+
+[node name="RitmoTexto" type="Label" parent="UI"]
+offset_left = 68
+offset_top = 24
+offset_right = 120
+offset_bottom = 36
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 1, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "RITMO"
+
+[node name="Stats" type="Label" parent="UI"]
+offset_left = 4
+offset_top = 38
+offset_right = 260
+offset_bottom = 62
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 1, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = ""
+
+[node name="Ayuda" type="Label" parent="UI"]
+offset_left = 4
+offset_top = 256
+offset_right = 476
+offset_bottom = 268
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Q/LB: cambiar modo   E/Select: lanzar ya   Esc/Start: pausa"
+
+[node name="MenuPausa" parent="." instance=ExtResource("27_pausa")]
+texto_reiniciar = "Reiniciar sala"

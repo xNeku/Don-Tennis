@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ModoMaquina" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/modo_maquina.gd" id="1_modo"]
+[ext_resource type="Resource" path="res://data/golpes/normal.tres" id="2_tipo"]
+
+[resource]
+script = ExtResource("1_modo")
+nombre = "Parry (bola plana a la red)"
+tipo = ExtResource("2_tipo")
+destino = 4
+factor_tiempo = 0.62
+potencia = 0.4
+usa_ritmo = false
+pausa = 1.5

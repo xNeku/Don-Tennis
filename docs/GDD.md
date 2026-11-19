@@ -269,6 +269,13 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 - [PROPUESTA] El hitstop y la pausa conviven: un hitstop que acaba con la pausa abierta no la quita.
 - [ABIERTO] Aspecto definitivo de los menús (hoy es programmer art con un tema propio en `data/ui/tema_menu.tres`).
 
+## 13.3 Sala de entrenamiento
+- [PROPUESTA] Una máquina de bolas lanza bolas al lado del jugador, sin rival ni marcador, para probar el feel y practicar las mecánicas difíciles. Se entra desde el menú principal.
+- [PROPUESTA] **8 modos** (cada uno es un `.tres` en `data/entrenamiento/`, y se añaden más sin tocar código): Suave, Normal, Rápido, Parry (bola plana a la red), Esquinas, Dejadas, Globos y Ritmo creciente (la bola se acelera con los golpes seguidos, como en un partido).
+- [PROPUESTA] Se cambia de modo con LB o Q y se lanza una bola ya con Select o E. La máquina lanza sola tras una pausa configurable por modo.
+- [PROPUESTA] Cuenta devoluciones dentro, fuera, fallos (dejar botar dos veces), racha y mejor racha, perfectos, parries y planchas.
+- [ABIERTO] Más ayudas de entrenamiento (cámara lenta, repetir la última bola, mostrar la zona de parry). Pendiente de lo que necesites al probar.
+
 ## 14. Pensado para streamers
 
 - [PROPUESTA] Contador de intentos por rival y tiempo de partido.
@@ -327,7 +334,7 @@ Jugable: jugador (mando o teclado) contra un rival con IA base, partidos a 11, s
 - [PROPUESTA] **Knockup:** al recibir una bola con potencia ≥ 0,55 sin parry ni perfecto, estando a menos de 55 de la red. Solo ocurre al devolver tras el bote cerca de la red, así que es raro (casi solo con dejadas potentes).
 - [ABIERTO] ¿Debe haber más knockups? Opciones: que un parry fallido también cuente, o que los rivales tengan golpes potentes propios (las "zonas" del §9).
 - [PROPUESTA] **Reglas de punto:** bote fuera, bote en tu campo, red o doble bote del rival. Un lanzamiento de saque que bota sin golpearse se repite sin penalizar.
-- [ABIERTO] Sin implementar: golpe especial (§6.6, falta decidir qué hace), punto de oro en 10-10, sonido, menús, pausa.
+- [ABIERTO] Sin implementar: golpe especial (§6.6, falta decidir qué hace) y punto de oro en 10-10. Sonido, menús, pausa y sala de entrenamiento ya están (§13.1 a 13.3).
 - Inercia y derrape implementados (§6.8). La lectura de golpes del rival (wind-up) está decidida en el diseño pero sin implementar (§9).
 - Ritmo creciente, fricción de la pista y polvo de velocidad implementados.
 - Game feel implementado: hitstop (pausa del árbol, 0,04-0,13 s), sacudida de cámara a píxel entero, destello, polvo al rodar, frenar y caer, estela de la bola potente, arco de golpe, color de la bola según potencia y destello del personaje.

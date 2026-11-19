@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ModoMaquina" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/modo_maquina.gd" id="1_modo"]
+[ext_resource type="Resource" path="res://data/golpes/normal.tres" id="2_tipo"]
+
+[resource]
+script = ExtResource("1_modo")
+nombre = "Rápido"
+tipo = ExtResource("2_tipo")
+destino = 0
+factor_tiempo = 0.72
+potencia = 0.55
+usa_ritmo = false
+pausa = 1.3

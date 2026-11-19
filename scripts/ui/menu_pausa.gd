@@ -5,6 +5,9 @@ extends CanvasLayer
 
 const ESCENA_MENU: String = "res://scenes/ui/MenuPrincipal.tscn"
 
+## Texto del botón de reinicio (el partido dice "Reiniciar partido", la sala "Reiniciar sala").
+@export var texto_reiniciar: String = "Reiniciar partido"
+
 ## Verdadero mientras el menú está abierto (los efectos no deben quitar la pausa).
 static var abierto: bool = false
 
@@ -57,7 +60,7 @@ func abrir() -> void:
 	_es_final = false
 	_titulo.text = "PAUSA"
 	_continuar.visible = true
-	_reiniciar.text = "Reiniciar partido"
+	_reiniciar.text = texto_reiniciar
 	_mostrar(_continuar)
 
 

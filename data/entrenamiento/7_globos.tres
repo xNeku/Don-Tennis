@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ModoMaquina" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/modo_maquina.gd" id="1_modo"]
+[ext_resource type="Resource" path="res://data/golpes/globo.tres" id="2_tipo"]
+
+[resource]
+script = ExtResource("1_modo")
+nombre = "Globos"
+tipo = ExtResource("2_tipo")
+destino = 5
+factor_tiempo = 1.0
+potencia = -1.0
+usa_ritmo = false
+pausa = 2.0
