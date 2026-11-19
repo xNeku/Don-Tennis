@@ -409,8 +409,9 @@ func _resolver_golpe(b: Bola, emergencia: bool) -> void:
 		"potencia": potencia, "entrante": entrante, "saque": swing_saque,
 		"emergencia": emergencia, "knock": knock, "destino": destino, "globo": swing_globo or emergencia,
 	}
-	b.lanzar_hacia(b.position, maxf(b.z, 4.0), destino, tiempo, potencia)
+	# Quién golpea se marca antes de lanzar: así quien escucha `lanzada` ya sabe que es un golpe.
 	b.ultimo_golpeador = lado
+	b.lanzar_hacia(b.position, maxf(b.z, 4.0), destino, tiempo, potencia)
 	b.golpes_en_juego += 1
 	if es_globo and b.ritmo != null:
 		# El globo relaja el peloteo.

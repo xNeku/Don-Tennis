@@ -33,6 +33,7 @@ Arcade de tenis en vista vertical, rápido y difícil, con rivales únicos tipo 
 - `scenes/`: pocas escenas, en texto.
 - `data/`: todo el contenido (rivales, etapas, quirks, paletas...) como Resources `.tres` con ID. Nunca código por rival.
 - `art/`: PNG del humano.
+- `audio/`: sonidos del humano. `audio/placeholder/` son provisionales (síntesis por código) y se sustituyen cambiando el stream en `data/audio/banco_sonidos.tres`, sin tocar código.
 - `tmp_tests/`: escenas y scripts de prueba temporales. Se borran antes del commit.
 
 ## Principios de código

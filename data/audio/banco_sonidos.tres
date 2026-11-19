@@ -1,0 +1,152 @@
+[gd_resource type="Resource" script_class="BancoSonidos" load_steps=39 format=3]
+
+[ext_resource type="Script" path="res://scripts/datos/banco_sonidos.gd" id="1_banco"]
+[ext_resource type="Script" path="res://scripts/datos/sonido_evento.gd" id="2_evento"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/golpe_suave.wav" id="a_golpe_suave"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/golpe_fuerte.wav" id="a_golpe_fuerte"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/golpe_perfecto.wav" id="a_golpe_perfecto"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/parry.wav" id="a_parry"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/globo.wav" id="a_globo"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/saque.wav" id="a_saque"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/saque_lanzar.wav" id="a_saque_lanzar"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/bote_suave.wav" id="a_bote_suave"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/bote_fuerte.wav" id="a_bote_fuerte"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/red.wav" id="a_red"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/derrape.wav" id="a_derrape"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/rodar.wav" id="a_rodar"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/plancha.wav" id="a_plancha"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/plancha_caida.wav" id="a_plancha_caida"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/knockup.wav" id="a_knockup"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/pisada.wav" id="a_pisada"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/punto_ganado.wav" id="a_punto_ganado"]
+[ext_resource type="AudioStream" path="res://audio/placeholder/punto_perdido.wav" id="a_punto_perdido"]
+
+[sub_resource type="Resource" id="Resource_golpe_suave"]
+script = ExtResource("2_evento")
+id = &"golpe_suave"
+streams = Array[AudioStream]([ExtResource("a_golpe_suave")])
+volumen_db = 0.0
+variacion_tono = 0.06
+
+[sub_resource type="Resource" id="Resource_golpe_fuerte"]
+script = ExtResource("2_evento")
+id = &"golpe_fuerte"
+streams = Array[AudioStream]([ExtResource("a_golpe_fuerte")])
+volumen_db = 0.0
+variacion_tono = 0.05
+
+[sub_resource type="Resource" id="Resource_golpe_perfecto"]
+script = ExtResource("2_evento")
+id = &"golpe_perfecto"
+streams = Array[AudioStream]([ExtResource("a_golpe_perfecto")])
+volumen_db = 0.0
+variacion_tono = 0.03
+
+[sub_resource type="Resource" id="Resource_parry"]
+script = ExtResource("2_evento")
+id = &"parry"
+streams = Array[AudioStream]([ExtResource("a_parry")])
+volumen_db = 0.0
+variacion_tono = 0.03
+
+[sub_resource type="Resource" id="Resource_globo"]
+script = ExtResource("2_evento")
+id = &"globo"
+streams = Array[AudioStream]([ExtResource("a_globo")])
+volumen_db = 0.0
+variacion_tono = 0.06
+
+[sub_resource type="Resource" id="Resource_saque"]
+script = ExtResource("2_evento")
+id = &"saque"
+streams = Array[AudioStream]([ExtResource("a_saque")])
+volumen_db = 0.0
+variacion_tono = 0.04
+
+[sub_resource type="Resource" id="Resource_saque_lanzar"]
+script = ExtResource("2_evento")
+id = &"saque_lanzar"
+streams = Array[AudioStream]([ExtResource("a_saque_lanzar")])
+volumen_db = 0.0
+variacion_tono = 0.08
+
+[sub_resource type="Resource" id="Resource_bote_suave"]
+script = ExtResource("2_evento")
+id = &"bote_suave"
+streams = Array[AudioStream]([ExtResource("a_bote_suave")])
+volumen_db = 0.0
+variacion_tono = 0.1
+
+[sub_resource type="Resource" id="Resource_bote_fuerte"]
+script = ExtResource("2_evento")
+id = &"bote_fuerte"
+streams = Array[AudioStream]([ExtResource("a_bote_fuerte")])
+volumen_db = 0.0
+variacion_tono = 0.08
+
+[sub_resource type="Resource" id="Resource_red"]
+script = ExtResource("2_evento")
+id = &"red"
+streams = Array[AudioStream]([ExtResource("a_red")])
+volumen_db = 0.0
+variacion_tono = 0.05
+
+[sub_resource type="Resource" id="Resource_derrape"]
+script = ExtResource("2_evento")
+id = &"derrape"
+streams = Array[AudioStream]([ExtResource("a_derrape")])
+volumen_db = -2.0
+variacion_tono = 0.08
+
+[sub_resource type="Resource" id="Resource_rodar"]
+script = ExtResource("2_evento")
+id = &"rodar"
+streams = Array[AudioStream]([ExtResource("a_rodar")])
+volumen_db = -2.0
+variacion_tono = 0.06
+
+[sub_resource type="Resource" id="Resource_plancha"]
+script = ExtResource("2_evento")
+id = &"plancha"
+streams = Array[AudioStream]([ExtResource("a_plancha")])
+volumen_db = -1.0
+variacion_tono = 0.05
+
+[sub_resource type="Resource" id="Resource_plancha_caida"]
+script = ExtResource("2_evento")
+id = &"plancha_caida"
+streams = Array[AudioStream]([ExtResource("a_plancha_caida")])
+volumen_db = 0.0
+variacion_tono = 0.05
+
+[sub_resource type="Resource" id="Resource_knockup"]
+script = ExtResource("2_evento")
+id = &"knockup"
+streams = Array[AudioStream]([ExtResource("a_knockup")])
+volumen_db = 0.0
+variacion_tono = 0.03
+
+[sub_resource type="Resource" id="Resource_pisada"]
+script = ExtResource("2_evento")
+id = &"pisada"
+streams = Array[AudioStream]([ExtResource("a_pisada")])
+volumen_db = 0.0
+variacion_tono = 0.12
+
+[sub_resource type="Resource" id="Resource_punto_ganado"]
+script = ExtResource("2_evento")
+id = &"punto_ganado"
+streams = Array[AudioStream]([ExtResource("a_punto_ganado")])
+volumen_db = -4.0
+variacion_tono = 0.0
+
+[sub_resource type="Resource" id="Resource_punto_perdido"]
+script = ExtResource("2_evento")
+id = &"punto_perdido"
+streams = Array[AudioStream]([ExtResource("a_punto_perdido")])
+volumen_db = -4.0
+variacion_tono = 0.0
+
+[resource]
+script = ExtResource("1_banco")
+eventos = Array[ExtResource("2_evento")]([SubResource("Resource_golpe_suave"), SubResource("Resource_golpe_fuerte"), SubResource("Resource_golpe_perfecto"), SubResource("Resource_parry"), SubResource("Resource_globo"), SubResource("Resource_saque"), SubResource("Resource_saque_lanzar"), SubResource("Resource_bote_suave"), SubResource("Resource_bote_fuerte"), SubResource("Resource_red"), SubResource("Resource_derrape"), SubResource("Resource_rodar"), SubResource("Resource_plancha"), SubResource("Resource_plancha_caida"), SubResource("Resource_knockup"), SubResource("Resource_pisada"), SubResource("Resource_punto_ganado"), SubResource("Resource_punto_perdido")])

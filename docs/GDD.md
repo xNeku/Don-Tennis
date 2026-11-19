@@ -255,6 +255,13 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 - [PROPUESTA] En la prueba, un placeholder con burbujas de texto. Lo sustituye el diseño final.
 - [PROPUESTA] Música y sonido propios o con licencia limpia (importante para streamers: nada de copyright).
 
+
+### 13.1 Estado del sonido (fase 1)
+- [PROPUESTA] Sonidos provisionales sintetizados por código (`audio/placeholder/`): golpes (suave, fuerte, perfecto, parry, globo, saque), botes (suave y fuerte según velocidad), red, derrape, rodar, plancha y su caída, knockup, pisadas, jingle de punto ganado y perdido, ambiente suave en bucle y sonidos de menú.
+- [PROPUESTA] Todo es dato: `data/audio/banco_sonidos.tres` asigna uno o varios audios a cada evento, con volumen y variación de tono. Para poner tu audio solo cambias el stream.
+- [PROPUESTA] Buses de audio: Master, Efectos, Ambiente y UI (`default_bus_layout.tres`). Los sonidos siguen sonando durante el hitstop y la pausa.
+- [ABIERTO] Música. Sin decidir.
+
 ## 14. Pensado para streamers
 
 - [PROPUESTA] Contador de intentos por rival y tiempo de partido.

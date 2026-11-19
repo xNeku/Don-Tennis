@@ -24,6 +24,7 @@ signal partido_terminado(ganador: int)
 @onready var rival: Personaje = $Rival
 @onready var efectos: EfectosGolpe = $Efectos
 @onready var camara: CamaraFeel = $Camara
+@onready var sonidos: SonidosPartido = $Sonidos
 @onready var _etiqueta_marcador: Label = $UI/Marcador
 @onready var _etiqueta_mensaje: Label = $UI/Mensaje
 @onready var _barra_ritmo: ColorRect = $UI/RitmoBarra
@@ -53,6 +54,7 @@ func _ready() -> void:
 	_ia_rival.configurar(rival, jugador, self, bola, pista, semilla * 7 + 4)
 	efectos.camara = camara
 	efectos.conectar([jugador, rival], bola, pista)
+	sonidos.conectar([jugador, rival], bola, self)
 	bola.rebote.connect(_on_rebote)
 	bola.golpeo_red.connect(_on_red)
 	jugador.golpe_realizado.connect(_on_golpe)
