@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3]
+[gd_scene load_steps=27 format=3]
 
 [ext_resource type="Script" path="res://scripts/mundo/partido.gd" id="1_part"]
 [ext_resource type="PackedScene" path="res://scenes/Pista25D.tscn" id="2_pista"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" path="res://art/placeholder/racha_h.png" id="22_rh"]
 [ext_resource type="Texture2D" path="res://art/placeholder/racha_v.png" id="23_rv"]
 [ext_resource type="Script" path="res://scripts/efectos/sonidos_partido.gd" id="24_son"]
+[ext_resource type="PackedScene" path="res://scenes/ui/MenuPausa.tscn" id="27_pausa"]
 [ext_resource type="Resource" path="res://data/audio/banco_sonidos.tres" id="25_banco"]
 [ext_resource type="AudioStream" path="res://audio/placeholder/ambiente.wav" id="26_amb"]
 
@@ -130,3 +131,5 @@ theme_override_colors/font_outline_color = Color(0.078, 0.071, 0.169, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
+
+[node name="MenuPausa" parent="." instance=ExtResource("27_pausa")]

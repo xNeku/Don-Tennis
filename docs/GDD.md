@@ -262,6 +262,13 @@ Reglas de justicia (innegociables para un juego difícil que se streamea):
 - [PROPUESTA] Buses de audio: Master, Efectos, Ambiente y UI (`default_bus_layout.tres`). Los sonidos siguen sonando durante el hitstop y la pausa.
 - [ABIERTO] Música. Sin decidir.
 
+## 13.2 Menús y pausa
+- [PROPUESTA] Todo se maneja con mando (cruceta o stick, A aceptar, B atrás), con teclado como alternativa y sin ratón obligatorio.
+- [PROPUESTA] **Menú principal:** Jugar, Entrenamiento, Opciones, Salir. **Pausa** (Start o Esc): Continuar, Opciones, Reiniciar partido y Menú principal. **Fin de partido:** GANAS o PIERDES con Revancha y Menú principal.
+- [PROPUESTA] **Opciones:** volumen general, efectos y ambiente, y pantalla completa. Se guardan en `user://opciones.cfg` y se aplican al arrancar (autoload `Opciones`).
+- [PROPUESTA] El hitstop y la pausa conviven: un hitstop que acaba con la pausa abierta no la quita.
+- [ABIERTO] Aspecto definitivo de los menús (hoy es programmer art con un tema propio en `data/ui/tema_menu.tres`).
+
 ## 14. Pensado para streamers
 
 - [PROPUESTA] Contador de intentos por rival y tiempo de partido.

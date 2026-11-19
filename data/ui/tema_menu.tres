@@ -1,0 +1,103 @@
+[gd_resource type="Theme" load_steps=14 format=3]
+
+[ext_resource type="Texture2D" path="res://art/placeholder/ui_grabber.png" id="1_g"]
+[ext_resource type="Texture2D" path="res://art/placeholder/ui_grabber_foco.png" id="2_gf"]
+[ext_resource type="Texture2D" path="res://art/placeholder/ui_check_off.png" id="3_off"]
+[ext_resource type="Texture2D" path="res://art/placeholder/ui_check_on.png" id="4_on"]
+
+[sub_resource type="StyleBoxFlat" id="btn_normal"]
+bg_color = Color(0.14, 0.15, 0.32, 1)
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="btn_foco"]
+bg_color = Color(0.27, 0.29, 0.6, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.82, 0.25, 1)
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="btn_pulsado"]
+bg_color = Color(0.4, 0.42, 0.75, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.82, 0.25, 1)
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="btn_off"]
+bg_color = Color(0.1, 0.1, 0.2, 1)
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="panel"]
+bg_color = Color(0.07, 0.07, 0.16, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.38, 0.7, 1)
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="pista"]
+bg_color = Color(0.2, 0.22, 0.45, 1)
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="relleno"]
+bg_color = Color(1, 0.82, 0.25, 1)
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="vacio"]
+
+[resource]
+default_font_size = 8
+Label/colors/font_color = Color(0.92, 0.94, 1, 1)
+Button/colors/font_color = Color(0.92, 0.94, 1, 1)
+Button/colors/font_focus_color = Color(1, 0.9, 0.5, 1)
+Button/colors/font_hover_color = Color(1, 0.9, 0.5, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0.45, 0.46, 0.6, 1)
+Button/font_sizes/font_size = 8
+CheckBox/colors/font_color = Color(0.92, 0.94, 1, 1)
+CheckBox/colors/font_focus_color = Color(1, 0.9, 0.5, 1)
+CheckBox/colors/font_hover_color = Color(1, 0.9, 0.5, 1)
+CheckBox/colors/font_pressed_color = Color(1, 1, 1, 1)
+CheckBox/colors/font_disabled_color = Color(0.45, 0.46, 0.6, 1)
+CheckBox/font_sizes/font_size = 8
+Button/styles/normal = SubResource("btn_normal")
+Button/styles/hover = SubResource("btn_foco")
+Button/styles/pressed = SubResource("btn_pulsado")
+Button/styles/focus = SubResource("btn_foco")
+Button/styles/disabled = SubResource("btn_off")
+CheckBox/styles/normal = SubResource("vacio")
+CheckBox/styles/hover = SubResource("btn_foco")
+CheckBox/styles/pressed = SubResource("vacio")
+CheckBox/styles/focus = SubResource("btn_foco")
+CheckBox/icons/checked = ExtResource("4_on")
+CheckBox/icons/unchecked = ExtResource("3_off")
+CheckBox/constants/h_separation = 6
+HSlider/styles/slider = SubResource("pista")
+HSlider/styles/grabber_area = SubResource("relleno")
+HSlider/styles/grabber_area_highlight = SubResource("relleno")
+HSlider/icons/grabber = ExtResource("1_g")
+HSlider/icons/grabber_highlight = ExtResource("2_gf")
+HSlider/icons/grabber_disabled = ExtResource("1_g")
+PanelContainer/styles/panel = SubResource("panel")

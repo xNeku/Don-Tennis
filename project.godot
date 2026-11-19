@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Don Tennis"
-run/main_scene="res://scenes/Partido.tscn"
+run/main_scene="res://scenes/ui/MenuPrincipal.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+
+Opciones="*res://scripts/ui/opciones.gd"
 
 [display]
 

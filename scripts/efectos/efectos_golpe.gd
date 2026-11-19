@@ -31,6 +31,9 @@ extends Node2D
 ## Velocidad (unidades/s) a partir de la cual un personaje deja rachas de velocidad.
 @export var velocidad_rachas: float = 78.0
 
+## Verdadero mientras dura un hitstop (el menú de pausa no debe quitar la pausa en ese momento).
+static var hitstop_activo: bool = false
+
 var _pista: Pista
 var _bola: Bola
 var _cuerpo_bola: Sprite2D
@@ -59,15 +62,16 @@ func conectar(personajes: Array, b: Bola, p: Pista) -> void:
 
 
 func _exit_tree() -> void:
-	if is_inside_tree():
-		get_tree().paused = false
+	hitstop_activo = false
 
 
 func _process(delta: float) -> void:
 	if _hitstop > 0.0:
 		_hitstop -= delta
 		if _hitstop <= 0.0:
-			get_tree().paused = false
+			hitstop_activo = false
+			if not MenuPausa.abierto:
+				get_tree().paused = false
 
 
 func _physics_process(_delta: float) -> void:
@@ -120,6 +124,7 @@ func _estela_bola() -> void:
 func _pedir_hitstop(duracion: float) -> void:
 	if duracion > _hitstop:
 		_hitstop = duracion
+		hitstop_activo = true
 		get_tree().paused = true
 
 

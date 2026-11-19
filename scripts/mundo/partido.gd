@@ -25,6 +25,7 @@ signal partido_terminado(ganador: int)
 @onready var efectos: EfectosGolpe = $Efectos
 @onready var camara: CamaraFeel = $Camara
 @onready var sonidos: SonidosPartido = $Sonidos
+@onready var menu_pausa: MenuPausa = $MenuPausa
 @onready var _etiqueta_marcador: Label = $UI/Marcador
 @onready var _etiqueta_mensaje: Label = $UI/Mensaje
 @onready var _barra_ritmo: ColorRect = $UI/RitmoBarra
@@ -77,6 +78,7 @@ func _physics_process(delta: float) -> void:
 					get_tree().quit()
 				elif _total_puntos > 0 and maxi(puntos[0], puntos[1]) >= puntos_para_ganar:
 					fase = Fases.Fase.FIN
+					menu_pausa.mostrar_final("GANAS" if puntos[Personaje.Lado.ABAJO] > puntos[Personaje.Lado.ARRIBA] else "PIERDES")
 				else:
 					_preparar_saque()
 
